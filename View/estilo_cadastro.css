@@ -1,0 +1,38 @@
+body{
+    background-color: #FFFD71;
+    margin-left: 1em;
+}
+
+#formulario{
+    font-size: 1em;
+}
+
+#formulario label, #formulario input, #formulario fieldset{
+    margin-bottom: 0.75em;
+    display: block;
+	float: left;
+    position: relative;
+}
+
+#formulario fieldset{
+    border-color: #FDCA2E;
+    box-sizing: content-box;
+}
+
+#formulario label{
+    text-align: left;
+	width: 7.5em;
+}
+
+#formulario br{
+    clear: left;
+}
+
+#bsubmit{
+    margin-right: 0.5em;
+}
+
+.widht{
+    width: 13em;
+    height: auto;
+}
