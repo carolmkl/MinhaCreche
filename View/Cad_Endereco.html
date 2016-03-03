@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Minha Creche Cadastro Endereços</title>
+        <link rel="stylesheet" href="estilo_cadastro.css" type="text/css">
+    </head>
+    
+    <body>
+        <!-- Aqui da pra usar um campo hidden ou algo outra coisa pra exibir um titulo decente 
+             Sem falar no fato de saber de quem é o cadastro ou se é uma edição(enum pessoal?)  
+             A pagina pode ser cortada em "pedaços" para fazer os cadastros em partes -->
+        <div>
+            <form id="formulario" action="#" method="post">                
+                <label for="codigo">Codigo</label> <input class="widht" type="text" id="codigo" name="codigo" /><br/>
+                <label id="logradouro">Logradouro</label> <input class="widht" type="text" id="logradouro" name="logradouro" /><br/>
+                <!-- Java script pra brincar com expressão regular -->
+                <label for="Cep">Cep</label> <input class="widht" type="text" id="Cep" name="Cep" /><br/>
+                <label for="bairro">Bairro</label> <input class="widht" type="text" id="bairro" name="bairro" /><br/>
+                <label for="cidade">Cidade</label> <input class="widht" type="text" id="cidade" name="cidade" /><br/>
+                <label for="uf">Uf</label> <input class="widht" type="text" id="uf" name="uf" /><br/>
+                <p> <input id="bsubmit" type="submit" value="Confirmar" /> <input type="button" value="Cancelar"> </p>
+            </form>
+        </div>
+    </body>
+</html>
