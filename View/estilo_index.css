@@ -9,6 +9,11 @@ body{
     height: auto;
 }
 
+#erro{
+    display: none;
+    color: red;
+}
+
 
 .width{
     width: 13em;
