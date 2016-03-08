@@ -4,16 +4,16 @@ $(document).ready(function (e) {
         
         if (vLogin.length === 0) {
             alert("Atenção\nO campo de Login está vazio");
-            //$("#login").focus();
+            $("#login").focus();
         } else if (vPassword.length === 0) {
             alert("Atenção\nO campo de Senha está vazio");
-            //$("#password").focus();
+            $("#password").focus();
         } else {
-            $.post("/MinhaCreche/controller/user.php", {login: vLogin, senha: vPassword}, function(retorno) {
+            $.post("/MinhaCreche/controller/user.php", {login: vLogin, senha: vPassword}, function (retorno) {
                 if (retorno) {
                     alert("Passou Miseraverl");
                 } else {
-                    //$("#login").focus;
+                     $("#login").focus();
                     $("#erro").show();
 				}
             });
