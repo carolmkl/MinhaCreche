@@ -16,7 +16,7 @@
 .cf{*zoom: 1;}
 body{
     font: 62.5%/1.2 Verdana, Helvetica, Arial, sans-serif;
-    background-color: #FFFD71;
+    background-color: #F3FFBD;
 }
 
 #lateral{
@@ -27,7 +27,7 @@ body{
     transition: all 0.5s ease;
 
     font-size: 1.2em;
-    background: #FDCA2E;
+    background: #70C1B3;
     color: #000000;
 
     height: 100%;

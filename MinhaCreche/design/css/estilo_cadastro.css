@@ -1,5 +1,5 @@
 body{
-    background-color: #FFFD71;
+    background-color: #F3FFBD;
     margin-left: 1em;
 }
 
@@ -15,7 +15,7 @@ body{
 }
 
 #formulario fieldset{
-    border-color: #FDCA2E;
+    border-color: #70C1B3;
     box-sizing: content-box;
 }
 

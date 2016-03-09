@@ -1,12 +1,17 @@
 @charset "UTF-8";
 
 body{
-    background-color: #FFFD71;
+    background-color: #F3FFBD;
 }
 
 #logo{
     max-width: 100%;
     height: auto;
+}
+
+#erro{
+    display: none;
+    color: red;
 }
 
 

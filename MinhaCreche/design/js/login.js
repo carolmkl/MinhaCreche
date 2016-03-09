@@ -9,7 +9,7 @@ $(document).ready(function (e) {
             alert("Atenção\nO campo de Senha está vazio");
             $("#password").focus();
         } else {
-            $.post("/MinhaCreche/controller/user.php", {login: vLogin, senha: vPassword}, function (retorno) {
+            $.post("/MinhaCreche/code/user.php", {login: vLogin, senha: vPassword}, function (retorno) {
                 if (retorno) {
                     alert("Passou Miseraverl");
                 } else {
