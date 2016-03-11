@@ -4,11 +4,6 @@ body{
     background-color: #F3FFBD;
 }
 
-#logo{
-    max-width: 100%;
-    height: auto;
-}
-
 #erro{
     display: none;
     color: red;
