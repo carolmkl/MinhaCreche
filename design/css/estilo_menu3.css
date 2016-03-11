@@ -1,0 +1,58 @@
+
+/*Pensar se eu deixo isso aqui mesmo*/
+body{
+    background-color: #F3FFBD;
+}
+
+#logo{
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+#menu{
+    text-align: center;
+    background: #70C1B3;
+    position: fixed;
+    left: 0em;
+    width: 15%;
+    height: 100%;
+    padding: 0;
+}
+
+#menu a{
+    display: block;
+    color: #000000;
+    font-size: 1.1em;
+    font-weight: 300;
+    text-decoration: none;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+}
+
+#menu span a:hover {
+    background: #70C1B3;
+    text-decoration: none;
+}
+
+#menu a:hover{
+    background: rgba(255,255,255,0.2);
+    text-decoration: none;
+}
+
+#menu li{
+    list-style: none;
+}
+
+.box{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
+}
+
+.box a{
+    border-bottom: 1px solid #F3FFBD;
+    padding: 1em;
+}
