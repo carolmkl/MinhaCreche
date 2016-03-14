@@ -1,5 +1,7 @@
 CREATE DATABASE MinhaCreche;
 
+USE MinhaCreche;
+
 CREATE TABLE PessoaFisica (
   id_pessoaFisica INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   nome VARCHAR(255) NULL,
