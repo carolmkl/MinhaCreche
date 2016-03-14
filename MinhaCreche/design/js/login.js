@@ -11,7 +11,7 @@ $(document).ready(function (e) {
         } else {
             $.post("/MinhaCreche/code/user.php", {login: vLogin, senha: vPassword}, function (retorno) {
                 if (retorno) {
-                    alert("Passou Miseraverl");
+                    window.location.replace("home.php")
                 } else {
                      $("#login").focus();
                     $("#erro").show();
