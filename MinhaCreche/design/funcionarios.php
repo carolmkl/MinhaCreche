@@ -13,7 +13,7 @@
             <?php include 'menu_principal.php' ?>
 
             <div class="conteiner">
-                <h1 class="space">Funcionários</h1>
+                <h1 class="space">Funcionários <img class="icon" src="imagens/plus-circle-outline.png" alt="cadastrar"></h1>
                 <div class="space">
                     
                     <table>

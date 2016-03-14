@@ -1,5 +1,6 @@
 /*Converter de em pra %*/
 
+/*conteiner do conteudo*/
 .conteiner {
     width: 85%;
     height: auto;
@@ -8,13 +9,15 @@
     right: 0;
     overflow: auto;
 }
-
+/*titulos*/
 .conteiner h1{
     text-decoration: nome;
     font-weight: 100;
     font-size: 1.6em;
 }
 
+
+/*Espaços e tamnhos*/
 .space{
     margin-top: 2em;
     margin-left: 2%;
