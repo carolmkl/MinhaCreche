@@ -6,6 +6,8 @@
         <link rel="stylesheet" href="css/estilo_menu3.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_conteudo.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
+        <script src="js/callPage.js"></script>
+
 
     </head>
     <body>
@@ -13,7 +15,7 @@
             <?php include 'menu_principal.php' ?>
 
             <div class="conteiner">
-                <h1 class="space">Crianças <a href="crianca_add.php"><img class="icon" src="imagens/plus-circle-outline.png" alt="cadastrar"></a></h1>
+                <h1 class="space_title">Crianças <input type="image" class="icon" src="imagens/plus-circle-outline.png" onclick="callRegister('cadastroAluno.php', 'Criança')"></h1>
                 <div class="space">
                     
                     <table>

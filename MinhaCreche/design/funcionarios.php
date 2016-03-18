@@ -6,14 +6,15 @@
         <link rel="stylesheet" href="css/estilo_menu3.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_conteudo.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
-
+        <script src="js/callPage.js"></script>
+        
     </head>
     <body>
         <div>
             <?php include 'menu_principal.php' ?>
 
             <div class="conteiner">
-                <h1 class="space">Funcionários <a href="funcionario_add.php"><img class="icon" src="imagens/plus-circle-outline.png" alt="cadastrar"></a></h1>
+                <h1 class="space_title">Funcionários <input type="image" class="icon" src="imagens/plus-circle-outline.png" onclick="callRegister('cadastroGeral.html', 'Funcionário')"></h1>
                 <div class="space">
                     
                     <table>

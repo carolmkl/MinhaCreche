@@ -1,6 +1,10 @@
-
+<div id="header"> 
+    <div class="text_header"> 
+        <span class="space_header" id="user_name">Ciclano</span> <span class="space_header"><a href="login.html">Sair</a></span>
+    </div>
+</div>
 <div id="menu">
-    <span><a href="home.php"><img id="logo" src="imagens/logo2_0_100.png" alt="Minha Creche"></a></span>
+    <span class="img_center"><a href="home.php"><img class="logo" src="imagens/logo2_0_100.png" alt="Minha Creche"></a></span>
           <ul class="box">
               <li><a href="creche.php">Creche</a></li>
               <li><a href="funcionarios.php">Funcionários</a></li>

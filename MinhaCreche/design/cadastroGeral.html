@@ -3,17 +3,21 @@
     <head>
         <meta charset="utf-8">
         <title>Minha Creche Cadastro</title>
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="css/estilo_cadastro.css" type="text/css">
+        <script src="js/cadastroAldulto.js"></script>
+        <script src="js/callPage.js"></script>
     </head>
     
     <body>
         <!-- Aqui da pra usar um campo hidden ou algo outra coisa pra exibir um titulo decente 
              Sem falar no fato de saber de quem é o cadastro ou se é uma edição(enum pessoal?)  
              A pagina pode ser cortada em "pedaços" para fazer os cadastros em partes -->
-        <div>
+        <div class="conteiner">
             <form id="formulario" action="#" method="post">
                 <!-- Necessidade de discutir o que fazer quanto as fotos, creiam pelo que eu li isso pode dar dor de cabeça-->
-                <label for="photo">Foto</label> <input class="widht" type="text" id="photo" name="photo" /><br/>
+                <!--<label for="photo">Foto</label> <input class="widht" type="text" id="photo" name="photo" /><br/>-->
                 <label id="name">Nome</label> <input class="widht" type="text" id="name" name="name" /><br/>
                 <!-- Java script pra brincar com expressão regular -->
                 <label for="CPF">CPF</label> <input class="widht" type="text" id="CPF" name="CPF" /><br/>
@@ -37,7 +41,7 @@
                     <option value="teacher">Pedagogo(a)</option>
                     <option value="parents">Responsável</option>
                 </select><br/>
-                <p> <input id="bsubmit" type="submit" value="Confirmar" /> <input type="button" value="Cancelar"> </p>
+                <p> <input id="bsubmit" type="button" value="Confirmar" /> <input type="button" value="Cancelar" onclick="goBack()"> </p>
             </form>
         </div>
     </body>

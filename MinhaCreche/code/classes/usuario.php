@@ -2,6 +2,7 @@
 
 abstract class Usuario
 {
+    protected $id;
     protected $cpf;
     protected $nome;
     protected $proficao;
@@ -15,7 +16,19 @@ abstract class Usuario
     
     protected $telefone = array();
     
-    public abstract function __construct($nome, $cpf, $proficao, $dataNascimento, $genero, $email, $login, $senha, $telefone);
+    /*Outros atributos necessários*/
+    
+    public function __construct($nome, $cpf, $proficao, $dataNascimento, $genero, $email, $login, $senha, $telefone){
+        setNome($nome);
+        setCpf($cpf);
+        setProficao($proficao);
+        setDataNascimento($dataNascimento);
+        setGenero($genero);
+        setEmail($email);
+        setLogin($login);
+        setSenha($senha);
+        setTelefone($telefone);
+    }
     
     public function setNome($nome){
         $this->nome = $nome;

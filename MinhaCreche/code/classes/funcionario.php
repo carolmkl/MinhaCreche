@@ -4,5 +4,8 @@
 
     class Funcionario extends Usuario{
         
+        $acesso;
+        
+        
     }
 ?>

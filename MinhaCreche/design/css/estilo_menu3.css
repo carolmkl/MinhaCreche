@@ -13,7 +13,6 @@ body{
 }
 
 #menu{
-    text-align: center;
     background: #70C1B3;
     position: fixed;
     left: 0em;
@@ -46,6 +45,7 @@ body{
 }
 
 .box{
+    text-align: center;
     width: 100%;
     height: 100%;
     top: 0;
@@ -67,6 +67,7 @@ body{
     margin-top: 1em;
     position: relative;
     float: right;
+    z-index: 1000;
 }
 
 .text_header{
@@ -77,4 +78,8 @@ body{
 
 .space_header{
     margin-right: 1em;
+}
+
+.space_header a{
+    color: #000000;
 }

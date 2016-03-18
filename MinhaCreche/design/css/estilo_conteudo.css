@@ -50,6 +50,11 @@
     margin-left: 0;
 }
 
+.space_title{
+    margin-top: 2em;
+    margin-left: 2%;
+}
+
 .space label{
     margin-right: 0.01em;
 }
