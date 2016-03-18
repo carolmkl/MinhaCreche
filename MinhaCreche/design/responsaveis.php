@@ -13,7 +13,7 @@
             <?php include 'menu_principal.php' ?>
 
             <div class="conteiner">
-                <h1 class="space">Responsáveis  <img class="icon" src="imagens/plus-circle-outline.png" alt="cadastrar"></h1>
+                <h1 class="space">Responsáveis  <a href="responsavel_add.php"><img class="icon" src="imagens/plus-circle-outline.png" alt="cadastrar"></a></h1>
                 <div class="space">
                     
                     <table>
