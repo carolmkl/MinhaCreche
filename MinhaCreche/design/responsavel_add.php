@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="css/estilo_menu3.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_conteudo.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
+        <script src="js/callPage.js"></script>
 
     </head>
     <body>
@@ -14,7 +15,7 @@
 
             <div class="conteiner">
                 <h1 class="space">Adicionar Responsável</h1>
-                <form action="" autocomplete="on">
+                <form action="" autocomplete="on" method="post">
                 <div class="space">
                     <label class="text" for="name">Nome</label> <input class="text_big" type="text" id="name" name="name" autofocus> 
                     <label class="text" for="rg">RG</label> <input class="text_small" type="text" id="rg" name="rg" >
@@ -50,7 +51,7 @@
                     </fieldset>
 
                 </div>
-                <input type="submit" value="Salvar">
+                <p> <input id="bsubmit" type="button" value="Confirmar" /> <input type="button" value="Cancelar" onclick="goBack()"> </p>
                 </form>
             </div>
         </div>
