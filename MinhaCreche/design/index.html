@@ -12,11 +12,11 @@
         <div id="center">
             <span><img id="logo" src="imagens/logo2_0_100.png" alt="Minha Creche"></span>
             <!-- achar uma pagina pra fazer a verificação ou sei lá -->
-            <form action="#" method="post">
+            <form action="login.php" method="post">
                 <label id="text">Minha Creche</label><br>
-                <input class="width" type="text" value="user" size="20" name="login" id="login"><br>
-                <input class="width" type="password" value="*****" size="20" name="password" id="password"><br>
-                <input class="width" type="button" value="Entrar" id="enter">
+                <input class="width" type="text" hint="usuário" size="20" name="mclogin" id="mclogin" required="Preencha o usuário"><br>
+                <input class="width" type="password" hint="senha" size="20" name="mcpassword" id="mcpassword" required="Preencha a senha"><br>
+                <input class="width" type="submit" name="Submit" value="Entrar">
             </form>
             <div id="erro">Usuario ou Senha inválidos</div>
             <a href="#">Não Tenho Usuario</a><br>
