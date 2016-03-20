@@ -10,6 +10,7 @@
     </head>
     <body>
         <div>
+            <?php include 'valida_user.php' ?>
             <?php include 'menu_principal.php' ?>
 
             <div class="conteiner">
