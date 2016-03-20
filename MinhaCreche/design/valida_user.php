@@ -16,7 +16,7 @@ if(IsSet($_SESSION['mcpassword']))
       //Abre a conexão com o mysql e seleciona o banco/*
       include "conexaodb.php";
 
-      $sql = "SELECT 'ok' FROM usuario WHERE login='".mysqli_escape_string($conn,$usuario)."' and senha='".mysqli_escape_string($conn,$senha)."'";
+      $sql = "SELECT 'ok' FROM usuario WHERE login='".mysqli_escape_string($conn,$nome_usuario)."' and senha='".mysqli_escape_string($conn,$senha_usuario)."'";
       $result=mysqli_query($conn,$sql);
       
 
@@ -40,6 +40,6 @@ if(IsSet($_SESSION['mcpassword']))
    exit();
    }
 
-mysqli_close($con);
+mysqli_close($conn);
    
 ?>
