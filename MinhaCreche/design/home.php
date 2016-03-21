@@ -9,7 +9,7 @@
 
     </head>
     <body>
-        <?php include 'valida_user.php' ?>
+        <?php include '../code/valida_user.php' ?>
         <?php include 'menu_principal.php' ?>
         
         <div class="conteiner">
