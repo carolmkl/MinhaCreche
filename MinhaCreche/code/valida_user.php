@@ -28,18 +28,15 @@ if(IsSet($_SESSION['mcpassword']))
        if(mysqli_num_rows($result) < 1){
             unset($_SESSION['mclogin']);
             unset($_SESSION['mcpassword']);
-            echo "Você não efetuou o login!";
-            include "login.php";
+            header("Location: ../design/login.html");
             exit();
        } 
    }
    else
    {
-   echo "Você não efetuou o Login!";
-   include "login.php";
+   header("Location: ../design/login.html");
    exit();
    }
 
 mysqli_close($conn);
-   
 ?>

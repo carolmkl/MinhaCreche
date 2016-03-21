@@ -1,12 +1,10 @@
 <?php
 
-if(!isset($_POST['Submit'])){
-    include "index.html";
-}else{
+if(isset($_POST['login']) && isset($_POST['senha']) ){
     include "conexaodb.php";
 
-    $usuario = mysqli_escape_string($conn,$_REQUEST['mclogin']);
-    $senha = mysqli_escape_string($conn,$_REQUEST['mcpassword']);
+    $usuario = mysqli_escape_string($conn,$_POST['login']);
+    $senha = mysqli_escape_string($conn,$_POST['senha']);
 
 
     /*Aqui verificamos se o usuario e senha digitados no formulário existem e estão corretos*/
@@ -19,8 +17,7 @@ if(!isset($_POST['Submit'])){
     }
 
     if(mysqli_num_rows($result) < 1){
-       echo "Login ou senha errado(s)!!";
-       include "index.html";
+       echo 0;
     } 
     else 
     {
@@ -34,11 +31,12 @@ if(!isset($_POST['Submit'])){
        $_SESSION['mc_funcionario_id']=$row['id_Funcionario'];
        $_SESSION['mc_creche_id']=$row['id_creche'];
        $_SESSION['mc_responsável_id']=$row['id_responsavel'];
-
-       header("Location: home.php");
+       echo 1;
     }
 
     mysqli_close($conn);
+}else{
+    echo 0;
 }
 
 ?> 
