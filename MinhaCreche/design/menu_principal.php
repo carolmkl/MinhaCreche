@@ -1,6 +1,8 @@
 <div id="header"> 
     <div class="text_header"> 
-        <span class="space_header" id="user_name">Ciclano</span> <span class="space_header"><a href="login.html">Sair</a></span>
+        <span class="space_header" id="user_name">
+          <?php echo $_SESSION['mc_user_nome']; ?>
+        </span> <span class="space_header"><a href="login.html">Sair</a></span>
     </div>
 </div>
 <div id="menu">
