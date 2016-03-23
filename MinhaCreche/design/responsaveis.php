@@ -15,7 +15,7 @@
             <?php include 'menu_principal.php' ?>
 
             <div class="conteiner">
-                <h1 class="space_title">Responsáveis  <input type="image" class="icon" src="imagens/plus-circle-outline.png" onclick="callRegister('responsavel_add.php', 'Responsável')"></h1>
+                <h1 class="space_title">Responsáveis  <input type="image" class="icon" src="img/plus-circle-outline.png" onclick="callRegister('responsavel_add.php', 'Responsável')"></h1>
                 <div class="space">
                     
                     <table>

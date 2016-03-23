@@ -6,7 +6,7 @@
     </div>
 </div>
 <div id="menu">
-    <span class="img_center"><a href="home.php"><img class="logo" src="imagens/logo2_0_100.png" alt="Minha Creche"></a></span>
+    <span class="img_center"><a href="home.php"><img class="logo" src="img/logo2_0_100.png" alt="Minha Creche"></a></span>
           <ul class="box">
               <li><a href="creche.php">Creche</a></li>
               <li><a href="funcionarios.php">Funcionários</a></li>

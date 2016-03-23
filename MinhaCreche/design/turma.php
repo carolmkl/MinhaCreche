@@ -15,7 +15,7 @@
             <?php include 'menu_principal.php' ?>
 
             <div class="conteiner">
-                <h1 class="space_title">Turma  <input type="image" class="icon" src="imagens/plus-circle-outline.png" onclick="callRegister('turma_add.php', 'Turma')"></h1>
+                <h1 class="space_title">Turma  <input type="image" class="icon" src="img/plus-circle-outline.png" onclick="callRegister('turma_add.php', 'Turma')"></h1>
                 <div class="space">
                     
                     <table>

@@ -6,6 +6,8 @@
         <link rel="stylesheet" href="css/estilo_menu3.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_conteudo.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <script src="js/bootstrap.min.js"></script>
 
     </head>
     <body>
