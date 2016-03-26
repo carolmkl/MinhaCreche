@@ -1,6 +1,9 @@
 <?php 
 require_once 'conexaodb.php'; // The mysql database connection script
-$sql="select * from creche";
+
+$id_funcionario = $_REQUEST['id_funcionario'];
+
+$sql="select f.id_funcionario,f.cargo, pf.* from minhacreche.funcionario f inner join pessoafisica pf on f.id_pessoaFisica = pf.id_pessoafisica where f.id_funcionario = $id_funcionario;";
 $result = $conn->query($sql) or die($mysqli->error.__LINE__);
 
 $arr = array();

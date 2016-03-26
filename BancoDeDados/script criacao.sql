@@ -2,20 +2,26 @@ CREATE DATABASE MinhaCreche;
 
 USE MinhaCreche;
 
-CREATE TABLE PessoaFisica (
-  id_pessoaFisica INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  nome VARCHAR(255) NULL,
-  nrResidencia INTEGER UNSIGNED NULL,
-  complemento VARCHAR(60) NULL,
-  telefone VARCHAR(20) NULL,
-  celular VARCHAR(20) NULL,
-  email VARCHAR(255) NULL,
-  genero CHAR(1) NULL,
-  dtNascimento DATE NULL,
-  rg VARCHAR(20) NULL,
-  cpf VARCHAR(20) NULL,
-  PRIMARY KEY(id_pessoaFisica)
-);
+CREATE TABLE pessoafisica (
+  id_pessoaFisica int(10) unsigned NOT NULL AUTO_INCREMENT,
+  nome varchar(255)  NULL,
+  cpf varchar(20)  NULL,
+  rg varchar(20)  NULL,
+  email varchar(255)  NULL,
+  telefone varchar(20)  NULL,
+  celular varchar(20)  NULL,
+  dtNascimento date  NULL,
+  genero char(1)  NULL,
+  logradouro varchar(255)  NULL,
+  numero varchar(10)  NULL,
+  bairro varchar(60)  NULL,
+  cidade varchar(60)  NULL,
+  estado varchar(2)  NULL,
+  observacao varchar(255)  NULL,
+  PRIMARY KEY (id_pessoaFisica),
+  UNIQUE KEY cpf_UNIQUE (cpf)
+) 
+
 
 CREATE TABLE Creche (
   id_creche INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,

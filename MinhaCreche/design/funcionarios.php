@@ -17,7 +17,7 @@
 
             <div class="conteiner">
                 <h1 class="space_title">Funcionários <input type="image" class="icon" src="img/plus-circle-outline.png" onclick="callRegister('funcionario_form.php', 'Funcionário')"></h1>
-                <div class="space" ng-app="minhaCrecheApp" ng-controller="funcionarioCtrl">
+                <div class="space" ng-app="minhaCrecheApp" ng-controller="funcionarioListCtrl">
                     
                     <table>
                         <tr>
@@ -26,12 +26,12 @@
                             <th>Celular</th>
                             <th></th>
                         </tr>
-                        <tr ng-repeat="x in funcionarios">
-                            <td>{{ x.cargo }}</td>
-                            <td>{{ x.nome }}</td>
-                            <td>{{ x.celular }}</td>
-                            <td><a href="javascript:;" ng-click="deleteFuncionario({{x.id_funcionario}})" class="btn btn-sm btn-danger">Excluir</a>
-                            <a class="btn btn-sm btn-info" href='funcionario_form.php?id_funcionario={{x.id_funcionario}}'>Editar</a>
+                        <tr ng:repeat="func in funcionarios">
+                            <td>{{ func.cargo }}</td>
+                            <td>{{ func.nome }}</td>
+                            <td>{{ func.celular }}</td>
+                            <td><a ng:click="deleteFuncionario(func.id_funcionario)" class="btn btn-sm btn-danger">Excluir</a>
+                            <a  class="btn btn-sm btn-info" href='funcionario_form.php?a={{func.id_funcionario}}&b={{func.id_pessoaFisica}}'>Editar</a>
                             </td>
                         </tr>
                     </table>

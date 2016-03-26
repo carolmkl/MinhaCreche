@@ -15,8 +15,9 @@
             <?php include 'menu_principal.php' ?>
 
             <div class="conteiner">
+                <form action="" autocomplete="on" method="post" ng-app="minhaCrecheApp" ng-controller="funcionarioCtrl" ng-submit="salvafuncionario(id_creche,nome,cnpj,email,telefone1,telefone2,logradouro,numero,bairro,cidade,estado,observacao)" >
                 <h1 class="space">Adicionar Funcionário</h1>
-                <form action="" autocomplete="on" method="post">
+                <h1 class="space">Adicionar Funcionário</h1>
                 <div class="space">
                     <label class="text" for="name">Nome</label> <input class="text_big" type="text" id="name" name="name" autofocus> 
                     <label class="text" for="rg">RG</label> <input class="text_small" type="text" id="rg" name="rg" >
