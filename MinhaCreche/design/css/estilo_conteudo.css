@@ -1,4 +1,23 @@
 /*Converter de em pra %*/
+table{
+    width: 90%;
+    text-align: left;
+}
+
+th,td{
+    padding: 5px;
+    border-collapse: true;
+    border-bottom: 1px solid #ddd;
+}
+
+td a{
+    float: right;
+    margin: 5px;
+}
+
+th{
+    background: #70C1B3;
+}
 
 /*conteiner do conteudo*/
 .conteiner {
