@@ -20,15 +20,20 @@ CREATE TABLE PessoaFisica (
 CREATE TABLE Creche (
   id_creche INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   nome VARCHAR(255) NULL,
-  nomeFantasia VARCHAR(255) NULL,
-  nrResidencia INTEGER UNSIGNED NULL,
-  complemento VARCHAR(20) NULL,
-  telefone VARCHAR(20) NULL,
-  email VARCHAR(60) NULL,
   cnpj VARCHAR(20) NULL,
-  url VARCHAR(60) NULL,
+  email VARCHAR(60) NULL,
+  telefone1 VARCHAR(20) NULL,
+  telefone2 VARCHAR(20) NULL,
+  logradouro VARCHAR(255) NULL,
+  numero VARCHAR(10) NULL,
+  bairro VARCHAR(20) NULL,
+  cidade VARCHAR(20) NULL,
+  estado VARCHAR(2) NULL,
+  observacao VARCHAR(60) NULL,
   PRIMARY KEY(id_creche)
 );
+
+
 
 CREATE TABLE Turma (
   id_turma INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,

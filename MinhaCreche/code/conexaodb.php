@@ -5,12 +5,11 @@ $dbpass = "admin";
 $dbname = "minhacreche";
 
 /*Abre a conexão com o mysql*/
-$conn = mysqli_connect($dbserver,$dbuser,$dbpass);
-mysqli_select_db($conn,$dbname);
+$conn = new mysqli($dbserver,$dbuser,$dbpass,$dbname);
 
 // Check connection
-if (!$conn) {
-    echo "<p>Connection failed: ".mysqli_connect_error()."</p>";
-    die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    echo "<p>Connection failed: ".$conn->connect_error."</p>";
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>
