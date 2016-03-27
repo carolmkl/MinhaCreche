@@ -15,5 +15,6 @@
         <div class="conteiner">
              <div class="img_center"><img class="logo" src="img/logo2_0.png" alt="Minha Creche"></div>
         </div>
+        <?php include 'import.php' ?>
     </body>
 </html>

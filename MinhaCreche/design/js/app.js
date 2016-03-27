@@ -64,13 +64,13 @@
 	  	};
     };
 
-    function funcionarioCtrl($scope, $http,$RouteProvider){
+    function funcionarioCtrl($scope, $http,$stateParams){
 
-    	//$scope.id_funcionario = $RouteProvider.id_funcionario;
+		init();
 
 		function init(){
-			if ($RouteProvider.id_funcionario) {
-				$scope.id_funcionario = $RouteProvider.id_funcionario;
+			if ($stateParams.id_funcionario) {
+				$scope.id_funcionario = $stateParams.id_funcionario;
 				getFuncionario($scope.id_funcionario);
 			}else{
 
@@ -80,7 +80,7 @@
 		function getFuncionario(id_funcionario){  
 			alert("getFuncionario="+id_funcionario);
 			
-			$scope.id_funcionario = 0;
+			$scope.id_funcionario = 4;
 			$scope.id_pessoafisica = 0;
 
 			$http.post("./../code/funcionarioGet.php?id_funcionario="+$scope.id_funcionario).success(function(data){
@@ -111,26 +111,25 @@
 		};
 
 		//id_pessoafisica,nome,cpf,rg,email,telefone,celular,dtNascimento,genero,logradouro,numero,bairro,cidade,estado,observacao
-		init();
     };
 
 
-		angular.module('minhaCrecheApp', ['ngRoute'])
+		angular.module('minhaCrecheApp', ['ui.router'])
 			.controller('crecheCtrl',crecheCtrl)
 			.controller('funcionarioListCtrl',funcionarioListCtrl)
-			.config(['$RouteProvider', function($RouteProvider) {
-		    	$route.RouteProvider.
+			.config(['$stateParams', function($stateParams) {
+		    	$stateParams.
 		      when('/f/:id_funcionario', {
 		        templateUrl: 'funcionario_modal.php',
 		        controller: 'funcionarioCtrl'
 		      });
 		   	}])
-			.controller('funcionarioCtrl',['$scope','$route',funcionarioCtrl])
+			.controller('funcionarioCtrl',['$scope','$stateParams',funcionarioCtrl])
 			;
 
-		//crecheCtrl.$inject = ['$scope', '$http'];
-		//funcionarioListCtrl.$inject = ['$scope', '$http'];
-		//funcionarioCtrl.$inject = ['$scope', '$http','$$route'];
+		crecheCtrl.$inject = ['$scope', '$http'];
+		funcionarioListCtrl.$inject = ['$scope', '$http'];
+		funcionarioCtrl.$inject = ['$scope', '$http','$stateParams'];
 
 }());
 

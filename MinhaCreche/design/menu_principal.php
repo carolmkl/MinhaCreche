@@ -20,6 +20,3 @@
               <li><a href="../code/endSession.php">Sair</a></li>
           </ul>
 </div>
-<script src="js/angular.min.js"></script>
-<script src="js/angular-route.js"></script>
-<script src="js/app.js"></script>

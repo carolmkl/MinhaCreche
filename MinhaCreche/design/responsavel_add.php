@@ -56,5 +56,6 @@
                 </form>
             </div>
         </div>
+        <?php include 'import.php' ?>
     </body>
 </html>
