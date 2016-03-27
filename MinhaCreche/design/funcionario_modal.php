@@ -1,27 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Minha Creche</title>
-        <link rel="stylesheet" href="css/estilo_menu3.css" type="text/css">
-        <link rel="stylesheet" href="css/estilo_conteudo.css" type="text/css">
-        <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
-        <script src="js/callPage.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.js"></script>
+<script src="js/app.js"></script>
 
-    </head>
-    <body>
-        <div>
-            <?php include '../code/valida_user.php' ?>
-            <?php include 'menu_principal.php' ?>
-            <?php
-                $f = 0;
-                if(isset($_REQUEST["f"])){
-                    $f = $_REQUEST["f"];
-                    echo "<script>alert('<h1>func={$f}</h1>');</script>";
-                }
-            ?>
 
-            <div class="conteiner">
+<div class="conteiner">
                 <form action="" autocomplete="on" method="post" 
                 ng-app="minhaCrecheApp" 
                 ng-controller="funcionarioCtrl" 
@@ -102,6 +84,3 @@
                     </div>
                 </form>
             </div>
-        </div>
-    </body>
-</html>

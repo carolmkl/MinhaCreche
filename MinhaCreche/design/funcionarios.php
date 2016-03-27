@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="css/estilo_conteudo.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/modal.css" type="text/css">
         <script src="js/callPage.js"></script>
         
     </head>
@@ -31,16 +32,16 @@
                             <td>{{ func.nome }}</td>
                             <td>{{ func.celular }}</td>
                             <td><a ng:click="deleteFuncionario(func.id_funcionario)" class="btn btn-sm btn-danger">Excluir</a>
-                            <a  class="btn btn-sm btn-info" href='funcionario_form.php?a={{func.id_funcionario}}&b={{func.id_pessoaFisica}}'>Editar</a>
+                            <a  class="btn btn-sm btn-info" href="#/f/{{func.id_funcionario}}">Editar</a>
+                            <!--href='funcionario_form.php/f/{{func.id_funcionario}}/pf/{{func.id_pessoaFisica}}'-->
+                            <!--href='funcionario_form.php?f={{func.id_funcionario}}&pf={{func.id_pessoaFisica}}'-->
+                            <!--ng-click="openModalAddFuncionario('lg', item, $index)"-->
                             </td>
                         </tr>
                     </table>
-
+                    <div ng-view></div>
                 </div>
             </div>
         </div>
-        <script src="js/angular.min.js"></script>
-        <script src="js/mask.min.js"></script>
-        <script src="js/app.js"></script>
     </body>
 </html>
