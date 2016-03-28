@@ -25,8 +25,7 @@
                 <form action="" autocomplete="on" method="post" 
                 ng-app="minhaCrecheApp" 
                 ng-controller="funcionarioCtrl" 
-                ng-init = "id_funcionario = '<?php echo $f; ?>';getFuncionario('<?php echo $f; ?>')"
-                ng-submit="salvaFuncionario()" >
+                ng-submit="salvaFuncionario(login,senha,nome,cpf,rg,email,telefone,celular,ndtNascimento,genero,logradouro,numero,bairro,cidade,estado,observacao,cargo)" >
                     <h1 ng-hide="$scope.id_funcionario" class="space">Adicionar Funcionário</h1>
                     <h1 ng-show="$scope.id_funcionario" class="space">Editar Funcionário</h1>
                     <div class="space">

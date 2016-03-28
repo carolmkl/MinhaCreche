@@ -1,13 +1,13 @@
 <?php 
 require_once 'conexaodb.php'; // The mysql database connection script
 
-if(isset($_POST['id_funcionario'])){
+if(isset($_REQUEST['id_funcionario'])){
 
-	$id_funcionario = $_POST['id_funcionario'];
+	$id_funcionario = $_REQUEST['id_funcionario'];
 
 	$sql="select f.id_funcionario,f.cargo, pf.* from minhacreche.funcionario f inner join pessoafisica pf on f.id_pessoaFisica = pf.id_pessoafisica where f.id_funcionario = $id_funcionario;";
 
-	echo $sql;
+	//echo $sql;
 
 	$result = $conn->query($sql) or die($conn->error.__LINE__);
 
