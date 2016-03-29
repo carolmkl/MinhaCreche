@@ -17,7 +17,7 @@
             <?php include 'menu_principal.php' ?>
 
             <div class="conteiner">
-                <h1 class="space_title">Funcionários <input type="image" class="icon" src="img/plus-circle-outline.png" onclick="callRegister('funcionario_form.php', 'Funcionário')"></h1>
+                <h1 class="space_title">Funcionários <a href="funcionario_form.php"><img class="icon" src="img/plus-circle-outline.png" alt="Adicionar Funcionário"></a></h1>
                 <div class="space" ng-app="minhaCrecheApp" ng-controller="funcionarioListCtrl">
                     
                     <table>

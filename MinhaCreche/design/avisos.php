@@ -15,11 +15,35 @@
             <?php include 'menu_principal.php' ?>
 
             <div class="conteiner">
-                <h1 class="space_title">Avisos <input type="image" class="icon" src="img/plus-circle-outline.png" onclick="callRegister('#', 'Aviso')"></h1>
-                <div class="space">
-                    
-
+                <h1 class="space_title">Avisos <a href="#"><img class="icon" src="img/plus-circle-outline.png" alt="Adicionar Aviso"></a></h1>
+                
+                <div class="space div_table">
+                    <table>
+                        <tr>
+                            <th>Importante</th>
+                        </tr>
+                        <tr>
+                            <td>Algo</td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <th>Médio</th>
+                        </tr>
+                        <tr>
+                            <td>Algo</td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <th>Normal</th>
+                        </tr>
+                        <tr>
+                            <td>algo</td>
+                        </tr>
+                    </table>
                 </div>
+                
             </div>
         </div>
         <?php include 'import.php' ?>
