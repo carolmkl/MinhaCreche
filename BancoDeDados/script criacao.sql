@@ -20,7 +20,7 @@ CREATE TABLE pessoafisica (
   observacao varchar(255)  NULL,
   PRIMARY KEY (id_pessoaFisica),
   UNIQUE KEY cpf_UNIQUE (cpf)
-) 
+);
 
 
 CREATE TABLE Creche (
