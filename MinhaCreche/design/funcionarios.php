@@ -31,7 +31,7 @@
                             <td>{{ func.cargo }}</td>
                             <td>{{ func.nome }}</td>
                             <td>{{ func.celular }}</td>
-                            <td><a ng:click="deleteFuncionario(func.id_funcionario)" class="btn btn-sm btn-danger">Excluir</a>
+                            <td><a ng:click="deleteFuncionario(func.id_funcionario, func.id_pessoaFisica)" class="btn btn-sm btn-danger">Excluir</a>
                             <a  class="btn btn-sm btn-info" href="#/f/{{func.id_funcionario}}">Editar</a>
                             <!--href='funcionario_form.php/f/{{func.id_funcionario}}/pf/{{func.id_pessoaFisica}}'-->
                             <!--href='funcionario_form.php?f={{func.id_funcionario}}&pf={{func.id_pessoaFisica}}'-->

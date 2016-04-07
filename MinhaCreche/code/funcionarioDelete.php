@@ -2,11 +2,13 @@
 include 'conexaodb.php';
 
 $id_funcionario = $_REQUEST['id_funcionario'];
+$id_pessoa =  $_REQUEST['id_pessoaFisica'];
 
-$sql = "delete from funcionario where id_funcionario = $id_funcionario;";
+$sql = "DELETE FROM funcionario where id_funcionario = '$id_funcionario';
+DELETE FROM usuario WHERE id_PessoaFisica = '$id_pessoa';";
 print $sql;
 
-$result = $conn->query($sql) or die($conn->error.__LINE__);
+$result = $conn->multi_query($sql) or die($conn->error.__LINE__);
 
 echo $json_response = json_encode($result);
 

@@ -21,22 +21,18 @@ include 'conexaodb.php';
 	$login = $_REQUEST['login'];
 	$senha = $_REQUEST['senha'];
 
+    //$mysqltime = date ("Y-m-d", $phptime);
+    //$mysqltime = date ("Y-m-d", $phptime);
 
 
-$sql = "insert INTO  pessoafisica  (nome,cpf,rg,email,telefone,celular,dtNascimento,genero,logradouro,numero,bairro,cidade,estado,observacao)VALUES('$nome','$cpf','$rg','$email','$telefone','$celular','$dtNascimento','$genero','$logradouro','$numero','$bairro','$cidade','$estado','$observacao'); 
+$sql = "INSERT INTO  pessoafisica  (nome,cpf,rg,email,telefone,celular,dtNascimento,genero,logradouro,numero,bairro,cidade,estado,observacao) VALUES ('$nome','$cpf','$rg','$email','$telefone','$celular','$dtNascimento','$genero','$logradouro','$numero','$bairro','$cidade','$estado','$observacao');
+SELECT @pf:=max(id_pessoaFisica) FROM pessoafisica;
 
-SELECT max(id_pessoaFisica) into @pf FROM minhacreche.pessoafisica;
+INSERT INTO usuario (id_PessoaFisica, login, senha, nivel) VALUES (@pf, '$login', '$senha', '$cargo');
 
-INSERT INTO minhacreche.usuario (id_PessoaFisica, login, senha, nivel) VALUES (@pf, '$login', '$senha', '$cargo');
-
-INSERT INTO minhacreche.funcionario (id_creche, id_pessoaFisica, cargo) VALUES ( 1, @pf, '&cargo');";
-
-
-
-print $sql;
-
-$result = $conn->query($sql) or die($conn->error.__LINE__);
-
-echo $json_response = json_encode($result);
-
+INSERT INTO funcionario (id_creche, id_pessoaFisica, cargo) VALUES ( 1, @pf, '$cargo');";
+//print $sql;
+$result = $conn->multi_query($sql) or die($conn->error.__LINE__);
+echo $result;
+//echo $json_response = json_encode($result);
 ?>
