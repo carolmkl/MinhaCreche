@@ -5,7 +5,7 @@ if(isset($_REQUEST['id_funcionario'])){
 
 	$id_funcionario = $_REQUEST['id_funcionario'];
 
-	$sql="select f.id_funcionario,f.cargo, pf.* from minhacreche.funcionario f inner join pessoafisica pf on f.id_pessoaFisica = pf.id_pessoafisica where f.id_funcionario = $id_funcionario;";
+	$sql="select f.id_funcionario,f.cargo, pf.*, u.login, u.senha from minhacreche.funcionario f inner join pessoafisica pf on f.id_pessoaFisica = pf.id_pessoafisica inner join usuario u on u.id_pessoafisica = pf.id_pessoafisica where f.id_funcionario = $id_funcionario;";
 
 	//echo $sql;
 

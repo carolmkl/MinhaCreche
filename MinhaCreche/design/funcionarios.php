@@ -10,11 +10,18 @@
         <link rel="stylesheet" href="css/modal.css" type="text/css">
         <script src="js/callPage.js"></script>
         
+        <script type="text/javascript">
+            function callform(id) {
+                window.location = "funcionario_form.php?id="+id;
+            }
+        </script>
+        
     </head>
     <body>
         <div>
             <?php include '../code/valida_user.php' ?>
             <?php include 'menu_principal.php' ?>
+            <?php include 'import.php' ?>
 
             <div class="conteiner">
                 <h1 class="space_title">Funcionários <a href="funcionario_form.php"><img class="icon" src="img/plus-circle-outline.png" alt="Adicionar Funcionário"></a></h1>
@@ -32,7 +39,8 @@
                             <td>{{ func.nome }}</td>
                             <td>{{ func.celular }}</td>
                             <td><a ng:click="deleteFuncionario(func.id_funcionario, func.id_pessoaFisica)" class="btn btn-sm btn-danger">Excluir</a>
-                            <a  class="btn btn-sm btn-info" href="#/f/{{func.id_funcionario}}">Editar</a>
+                            <button class="btn btn-sm btn-info" id={{func.id_funcionario}} onclick="callform(this.id)">Editar</button>
+                            <!--<a  class="btn btn-sm btn-info" href="#/f/{{func.id_funcionario}}">Editar</a>
                             <!--href='funcionario_form.php/f/{{func.id_funcionario}}/pf/{{func.id_pessoaFisica}}'-->
                             <!--href='funcionario_form.php?f={{func.id_funcionario}}&pf={{func.id_pessoaFisica}}'-->
                             <!--ng-click="openModalAddFuncionario('lg', item, $index)"-->
@@ -43,6 +51,5 @@
                 </div>
             </div>
         </div>
-        <?php include 'import.php' ?>
     </body>
 </html>

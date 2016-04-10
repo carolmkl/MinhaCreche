@@ -1,5 +1,5 @@
 function callRegister(pageCall, whoRegister){
-                window.location.replace(pageCall);
+    window.location.replace(pageCall);
 }
 
 function goBack() {

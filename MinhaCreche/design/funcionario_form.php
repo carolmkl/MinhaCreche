@@ -8,85 +8,123 @@
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
         <script src="js/callPage.js"></script>
         <?php include 'import.php' ?>
+        <?php include '../code/valida_user.php' ?>
         
         <script type="text/javascript">
             $(document).ready(function (e) {
+                var vIdFunc = Number($("#idFuncionario").val());
                 $("#submit").click(function (e) {
-                    var cont = 0;
-                     $("#form").each(function() {
-                        if($(this).val() == "") {
-                            $(this).css({"border" : "1px solid #F00"});
-                            cont++;
+                    var vLogin = $("#login").val(), 
+                        vSenha = $("#senha").val(), 
+                        vNome = $("#nome").val(), 
+                        vCpf = $("#cpf").val(), 
+                        vRg = $("#rg").val(), 
+                        vEmail = $("#email").val(), 
+                        vTelefone = $("#telefone").val(), 
+                        vCelular = $("#celular").val(), 
+                        vDtNascimento = $("#dtNascimento").val(), 
+                        vGenero = $("#genero").val(), 
+                        vLogradouro = $("#logradouro").val(), 
+                        vNumero = $("#numero").val(), 
+                        vBairro = $("#bairro").val(), 
+                        vCidade = $("#cidade").val(), 
+                        vEstado = $("#estado").val(), 
+                        vObservacao = $("#observacao").val(), 
+                        vCargo = $("#cargo").val(),
+                        vIdPessoa = Number($("#idPessoa").val());
+                        
+                    var vDestino;
+                    if(vIdFunc != 0 ){
+                        vDestino = "../code/funcionarioUpdate.php";
+                    } else {
+                        vDestino = "../code/funcionarioInsert.php";
+                    }
+
+                    $.post(vDestino, {
+                        id_funcionario : vIdFunc,
+                        id_pessoafisica : vIdPessoa,
+                        nome : vNome,
+                        cpf : vCpf,
+                        rg : vRg,
+                        email : vEmail,
+                        telefone : vTelefone,
+                        celular : vCelular,
+                        dtNascimento : vDtNascimento,
+                        genero : vGenero,
+                        logradouro : vLogradouro,
+                        numero : vNumero,
+                        bairro : vBairro,
+                        cidade : vCidade,
+                        estado : vEstado,
+                        observacao : vObservacao,
+                        cargo : vCargo,
+                        login: vLogin,
+                        senha: vSenha
+                    }, function (retorno) {
+                        console.log(retorno);
+                        var dadosRetorno = JSON.parse(retorno);
+                        console.log(dadosRetorno);
+                        alert(retorno);
+                        if (dadosRetorno == true) {
+                            window.location.replace("funcionarios.php");
+                        } else {
+                            alert("Ocorreu um erro inesperado ao realizar a operação!");
                         }
                     });
-                    if(cont == 0) {
-                        var vLogin = $("#login").val(), 
-                            vSenha = $("#senha").val(), 
-                            vNome = $("#nome").val(), 
-                            vCpf = $("#cpf").val(), 
-                            vRg = $("#rg").val(), 
-                            vEmail = $("#email").val(), 
-                            vTelefone = $("#telefone").val(), 
-                            vCelular = $("#celular").val(), 
-                            vDtNascimento = $("#dtNascimento").val(), 
-                            vGenero = $("#genero").val(), 
-                            vLogradouro = $("#logradouro").val(), 
-                            vNumero = $("#numero").val(), 
-                            vBairro = $("#bairro").val(), 
-                            vCidade = $("#cidade").val(), 
-                            vEstado = $("#estado").val(), 
-                            vObservacao = $("#observacao").val(), 
-                            vCargo = $("#cargo").val();
-
-                        $.post("../code/funcionarioInsert.php", {
-                            id_funcionario : 0,
-                            id_pessoafisica : 0,
-                            nome : vNome,
-                            cpf : vCpf,
-                            rg : vRg,
-                            email : vEmail,
-                            telefone : vTelefone,
-                            celular : vCelular,
-                            dtNascimento : vDtNascimento,
-                            genero : vGenero,
-                            logradouro : vLogradouro,
-                            numero : vNumero,
-                            bairro : vBairro,
-                            cidade : vCidade,
-                            estado : vEstado,
-                            observacao : vObservacao,
-                            cargo : vCargo,
-                            login: vLogin,
-                            senha: vSenha
-                        }, function (retorno) {
-                            //alert(retorno)
-                            if (retorno == true) {
-                                window.location.replace("funcionarios.php");
-                            } else {
-                                alert("Ocorreu um erro inesperado ao realizar o cadastro!");
-                            }
-                        });
-                    }
                 });
+                
+                if(vIdFunc != 0){
+                    $.post("../code/funcionarioGet.php", {id_funcionario: vIdFunc}, function (retorno) {
+                        var dados = JSON.parse(retorno);
+                        console.log(dados);
+                        
+                        $("#login").val();
+                        $("#senha").val();
+                        $("#nome").val(dados[0].nome);
+                        $("#cpf").val(dados[0].cpf);
+                        $("#rg").val(dados[0].rg);
+                        $("#email").val(dados[0].email);
+                        $("#telefone").val(dados[0].telefone);
+                        $("#celular").val(dados[0].celular);
+                        $("#dtNascimento").val(dados[0].dtNascimento);
+                        $("#genero").val(dados[0].genero);
+                        $("#logradouro").val(dados[0].logradouro);
+                        $("#numero").val(dados[0].numero);
+                        $("#bairro").val(dados[0].bairro);
+                        $("#cidade").val(dados[0].cidade);
+                        $("#estado").val(dados[0].estado);
+                        $("#observacao").val(dados[0].observacao);
+                        $("#cargo").val(dados[0].cargo);
+                        $("#idPessoa").val(dados[0].id_pessoaFisica);
+                        $("#idFuncionario").val(dados[0].id_funcionario);
+                        
+                        $("#login").val(dados[0].login);
+                    });
+                }
             });
         </script>
     </head>
     <body>
         <div>
-            <?php include '../code/valida_user.php' ?>
             <?php include 'menu_principal.php' ?>
             <?php
                 $f = 0;
-                if(isset($_REQUEST["f"])){
-                    $f = $_REQUEST["f"];
-                    echo "<script>alert('<h1>func={$f}</h1>');</script>";
+                if(isset($_REQUEST["id"])){
+                    $f = $_REQUEST["id"];
                 }
             ?>
 
             <div class="conteiner">
                 <form action="" autocomplete="on" method="post" id="form" > <!--ng-app="minhaCrecheApp" ng-controller="funcionarioCtrl" ng-submit="salvaFuncionario(login,senha,nome,cpf,rg,email,telefone,celular,ndtNascimento,genero,logradouro,numero,bairro,cidade,estado,observacao,cargo)" --> 
-                    <h1 ng-hide="$scope.id_funcionario" class="space">Adicionar Funcionário</h1>
-                    <h1 ng-show="$scope.id_funcionario" class="space">Editar Funcionário</h1>
+                    <?php
+                        if($f == 0){
+                            echo "<h1 class='space'>Adicionar Funcionário</h1>";
+                        } else {
+                            echo "<h1 class='space'>Editar Funcionário</h1>";
+                        }
+                    ?>
+                    <input type="hidden" id="idFuncionario" value="<?php echo $f; ?>">
+                    <input type="hidden" id="idPessoa" value="">
                     <div class="space">
 
                         <fieldset class="fieldset_border">

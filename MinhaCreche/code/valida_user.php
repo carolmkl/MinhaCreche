@@ -16,9 +16,8 @@ if(IsSet($_SESSION['mcpassword']))
       //Abre a conexão com o mysql e seleciona o banco/*
       include "conexaodb.php";
 
-      $sql = "SELECT 'ok' FROM usuario WHERE login='".mysqli_escape_string($conn,$nome_usuario)."' and senha='".mysqli_escape_string($conn,$senha_usuario)."'";
+      $sql = "SELECT usuario.senha FROM usuario WHERE login='".mysqli_escape_string($conn,$nome_usuario)."'";
       $result=mysqli_query($conn,$sql);
-      
 
       if($result === FALSE) { 
            echo $sql;
@@ -30,12 +29,22 @@ if(IsSet($_SESSION['mcpassword']))
             unset($_SESSION['mcpassword']);
             header("Location: ../design/login.html");
             exit();
-       } 
+       }
+       
+       $row = mysqli_fetch_assoc($result);
+       $resul = $row['senha'];
+       
+       if(!password_verify($senha_usuario, $row['senha'])){
+           unset($_SESSION['mclogin']);
+           unset($_SESSION['mcpassword']);
+           header("Location: ../design/login.html");
+           exit();
+        }
    }
    else
    {
-   header("Location: ../design/login.html");
-   exit();
+       header("Location: ../design/login.html");
+       exit();
    }
 
 mysqli_close($conn);
