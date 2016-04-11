@@ -28,6 +28,14 @@ th{
     right: 0;
     overflow: auto;
 }
+
+/*Marca obrigatório*/
+#obrigatorio{
+    font-size: 0.8em;
+    color: red;
+    margin: none;
+}
+
 /*titulos*/
 .conteiner h1{
     text-decoration: nome;
