@@ -228,7 +228,8 @@
                             <input class="text_bigger" type="email" id="email" ng-model="email" ><br>
                             <label class="text" for="telefone">Telefone<sup>*</sup></label>
                             <input type="tel" id="telefone" ng-model="telefone" >
-                            <label class="text" for="celular">celular</label>
+                            <label class="text" for="celular">Celular</label>
+                            <label class="text" for="celular">Celular</label>
                             <input type="tel" id="celular" ng-model="celular" ><br>
                             <label class="text" for="nascimento">Data de Nascimento<sup>*</sup></label>
                             <input type="date" id="dtNascimento" ng-model="dtNascimento" >
