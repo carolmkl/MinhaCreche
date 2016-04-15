@@ -16,29 +16,40 @@
                 window.location = "responsavel_form.php?id="+id;
             }
             
-            $(document).ready(function(e) {
+            function deleteFuncionario(id_reponsavel, id_pessoaFisica){
+                // Validações decentes //
+                if(confirm("Deseja excluir esse usuário?")){
+                    $.post("../code/responsavelCRUD.php", 
+                           {operacao : 5, id_responsavel: id_reponsavel, id_pessoaFisica: id_pessoaFisica }, function(retorno) {
+                        var dado = JSON.parse(retorno);
+                        if(dado == true){
+                            loadPage();    
+                        } else {
+                            alert("Não foi possivel realizar a operação");
+                        }
+                        
+                    });
+                }
+            }
+            
+            function loadPage() {
                 $("#corpoTabela").empty();
                 $.post("../code/responsavelCRUD.php", {operacao : 1}, function(retorno){
                     //alert(retorno);
                     var dados = JSON.parse(retorno);
                     for(var i=0;dados.length>i;i++){
-				        //Adicionando registros retornados na tabela
-                        /*
-                            <td>{{ func.cargo }}</td>
-                            <td>{{ func.nome }}</td>
-                            <td>{{ func.celular }}</td>
-                            <td><a ng:click="deleteFuncionario(func.id_funcionario, func.id_pessoaFisica)" class="btn btn-sm btn-danger">Excluir</a>
-                            <button class="btn btn-sm btn-info" id={{func.id_funcionario}} onclick="callform(this.id)">Editar</button>
-                            </td>
-                        */
                         $('#corpoTabela').append(
                             '<tr><td>' + dados[i].nome + '</td>' + 
                             '<td>' + dados[i].telefone + '</td>' + 
                             '<td>' + dados[i].celular + '</td>'+
-                            '<td><a ng:click="deleteFuncionario(func.id_funcionario, func.id_pessoaFisica)" class="btn btn-sm btn-danger">Excluir</a>'+
+                            '<td><button class="btn btn-sm btn-danger" onclick="deleteFuncionario(' + dados[i].id_responsavel+', ' + dados[i].id_pessoaFisica + ')">Excluir</button>' + 
                             '<button class="btn btn-sm btn-info" id=' + dados[i].id_responsavel + ' onclick="callform(this.id)">Editar</button></td></tr>');
 			         }
                 });
+            }
+            
+            $(document).ready(function(e) {
+                loadPage();
             });
             
         </script>
@@ -49,7 +60,7 @@
             <?php include 'menu_principal.php' ?>
 
             <div class="conteiner">
-                <h1 class="space_title">Responsáveis <a href="responsavel_add.php"><img class="icon" src="img/plus-circle-outline.png" alt="Adicionar Resposável"></a></h1>
+                <h1 class="space_title">Responsáveis <a href="responsavel_form.php"><img class="icon" src="img/plus-circle-outline.png" alt="Adicionar Resposável"></a></h1>
                 <div class="space">
                     
                     <table>

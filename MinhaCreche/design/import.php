@@ -6,3 +6,4 @@
 <script src="js/angular-route.js"></script>
 <script src="js/angular-ui-router.js"></script>
 <script src="js/app.js"></script>
+<script src="js/jquery.mask.min.js"></script>
