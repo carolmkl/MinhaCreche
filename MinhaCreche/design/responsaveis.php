@@ -18,7 +18,7 @@
             
             function deleteFuncionario(id_reponsavel, id_pessoaFisica){
                 // Validações decentes //
-                if(confirm("Deseja excluir esse usuário?")){
+                if(confirm("Deseja excluir esse responsável?")){
                     $.post("../code/responsavelCRUD.php", 
                            {operacao : 5, id_responsavel: id_reponsavel, id_pessoaFisica: id_pessoaFisica }, function(retorno) {
                         var dado = JSON.parse(retorno);

@@ -139,18 +139,13 @@
     // Delete 5
     if($operacao == 1){
         responsavelList();
-        exit;
     } elseif ($operacao == 2){
         responsavelGet();
-        exit;
     } elseif ($operacao == 3){
         responsavelInsert();
-        exit;
     } elseif ($operacao == 4){
         responsavelUpdate();
-        exit;
     } elseif ($operacao == 5){
         responsavelDelete();
-        exit;
     }
 ?>
