@@ -3,7 +3,7 @@
     
     function responsavelList(){
         
-        $sql="select r.id_responsavel, r.id_pessoaFisica, r.profissao, pf.nome, pf.celular, pf.telefone from minhacreche.responsavel r inner join pessoafisica pf on r.id_pessoaFisica = pf.id_pessoafisica;";
+        $sql="select r.id_responsavel, r.id_pessoaFisica, r.profissao, pf.nome, pf.celular, pf.telefone, pf.cpf from minhacreche.responsavel r inner join pessoafisica pf on r.id_pessoaFisica = pf.id_pessoafisica;";
         $result = $GLOBALS['conn']->query($sql) or die($GLOBALS['conn']->error.__LINE__);
 
         $arr = array();

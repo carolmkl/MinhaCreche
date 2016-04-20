@@ -12,21 +12,44 @@
         <script src="js/callPage.js"></script>
         
         <script type="text/javascript">
+            // variavel global para os responsáveis
+            var dados = [];
+            var arrayResponsavel = [];
+            
+            // método pra colocar os responsáveis em uma tag select
             function loadResponsaveis() {
                 $("#corpoTabela").empty();
                 $.post("../code/responsavelCRUD.php", {operacao : 1}, function(retorno){
                     //alert(retorno);
-                    var dados = JSON.parse(retorno);
+                    dados = JSON.parse(retorno);
                     $('#responsaveis').append(
                             '<option value="">Selecione</option>');
                     for(var i=0;dados.length>i;i++){
                         $('#responsaveis').append(
-                            '<option value=' + dados[i].id_responsavel + '>' + dados[i].nome + '</option>');
+                            '<option value=' + i + '>' + dados[i].nome + '</option>');
 			         }
                 });
             }
             
+            // preenche a tabela com o responsavel escolhido
+            function preencheTabela(){
+                for(var i=0;i < arrayResponsavel.length;i++){
+                    $('#corpoTabela').append(
+                        '<tr><td>' + dados[arrayResponsavel[i].indice].nome + '</td>' +
+                        '<td>' + dados[arrayResponsavel[i].indice].cpf + '</td>' +
+                        '<td><button type="button" class="btn btn-sm btn-danger" onclick="deleteResponsavel(' + i + ')">Excluir</button></td></tr>');
+			         }
+            }
+            
+            // deleta um responsavel
+            function deleteResponsavel(indice){
+                arrayResponsavel.splice(Number(indice),1);
+                preencheTabela();
+            }
+            
+            //documento pronto
             $(document).ready(function() {
+                loadResponsaveis();
                 
                 var vIdCrianca = Number($("#idCrianca").val());
                 $("#submit").click(function (e) {
@@ -88,7 +111,31 @@
                     
                 });
                 
-                loadResponsaveis();
+                $("#adicionarResponsavel").click(function(e) {
+                    var vResponsavel = $("#responsaveis").val(),
+                        vParentesco = $("#parentesco").val();
+                    var erros = [];
+                    if(vResponsavel == ""){
+                        erros[erros.length] = "Selecione o Responsável."
+                    }
+                    if(!validaNome(vParentesco)){
+                        erros[erros.length] = "Parentesco inválida. Somente letras e números de tamanho mínimo 3."
+                    }
+                    
+                    if(erros.length == 0) {
+                        var indice = Number(vResponsavel);
+                        var responsavel = {indice: indice, id: dados[indice].id_responsavel, parentesco: vParentesco};
+                        arrayResponsavel[arrayResponsavel.length] = responsavel;
+                        preencheTabela();
+                        
+                    } else {
+                        var msg = "Corrija estes erros:";
+                        for (var i = 0; i<erros.length; i++) {
+                            msg += "\n" + erros[i];
+                        }
+                        alert(msg);
+                    }
+                });
                 
                 if(vIdCrianca != 0){
                     $.post("../code/criancaCRUD.php", {operacao : 2, id_crianca: vIdCrianca}, function (retorno) {
@@ -103,6 +150,8 @@
                         
                     });
                 }
+                
+                
                 
             });        
             
@@ -156,7 +205,7 @@
                             <br>
                             <label for="parentesco">Parentesco</label>
                             <input class="text" type="text" id="parentesco">
-                            <button>Adicionar</button>
+                            <button type="button" id="adicionarResponsavel">Adicionar</button>
                             <br>
                             <!--melhorar a tabela-->
                             <table>
