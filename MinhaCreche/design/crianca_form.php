@@ -18,7 +18,7 @@
             
             // método pra colocar os responsáveis em uma tag select
             function loadResponsaveis() {
-                $("#corpoTabela").empty();
+                $("#responsaveis").empty();
                 $.post("../code/responsavelCRUD.php", {operacao : 1}, function(retorno){
                     //alert(retorno);
                     dados = JSON.parse(retorno);
@@ -33,6 +33,7 @@
             
             // preenche a tabela com o responsavel escolhido
             function preencheTabela(){
+                $('#corpoTabela').empty();
                 for(var i=0;i < arrayResponsavel.length;i++){
                     $('#corpoTabela').append(
                         '<tr><td>' + dados[arrayResponsavel[i].indice].nome + '</td>' +
@@ -43,7 +44,7 @@
             
             // deleta um responsavel
             function deleteResponsavel(indice){
-                arrayResponsavel.splice(Number(indice),1);
+                arrayResponsavel.splice(indice,1);
                 preencheTabela();
             }
             
