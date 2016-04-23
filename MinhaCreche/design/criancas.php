@@ -12,14 +12,14 @@
 
         <script type="text/javascript">
             function callform(id) {
-                window.location = "responsavel_form.php?id="+id;
+                window.location = "crianca_form.php?id="+id;
             }
             
-            function deleteFuncionario(id_reponsavel, id_pessoaFisica){
+            function deleteCrianca(id_crianca){
                 // Validações decentes //
                 if(confirm("Deseja excluir essa criança?")){
                     $.post("../code/criancaCRUD.php", 
-                           {operacao : 5, id_responsavel: id_reponsavel, id_pessoaFisica: id_pessoaFisica }, function(retorno) {
+                           {operacao : 5, id_crianca: id_crianca }, function(retorno) {
                         var dado = JSON.parse(retorno);
                         if(dado == true){
                             loadPage();    
@@ -34,15 +34,14 @@
             function loadPage() {
                 $("#corpoTabela").empty();
                 $.post("../code/criancaCRUD.php", {operacao : 1}, function(retorno){
-                    //alert(retorno);
                     var dados = JSON.parse(retorno);
                     for(var i=0;dados.length>i;i++){
                         $('#corpoTabela').append(
                             '<tr><td>' + dados[i].nome + '</td>' + 
                             //'<td>' + dados[i].telefone + '</td>' + 
                             //'<td>' + dados[i].celular + '</td>'+
-                            '<td><button class="btn btn-sm btn-danger" onclick="deleteFuncionario(' + dados[i].id_responsavel+', ' + dados[i].id_pessoaFisica + ')">Excluir</button>' + 
-                            '<button class="btn btn-sm btn-info" id=' + dados[i].id_responsavel + ' onclick="callform(this.id)">Editar</button></td></tr>');
+                            '<td><button class="btn btn-sm btn-danger" onclick="deleteCrianca(' + dados[i].id_crianca + ')">Excluir</button>' + 
+                            '<button class="btn btn-sm btn-info" id=' + dados[i].id_crianca + ' onclick="callform(this.id)">Editar</button></td></tr>');
 			         }
                 });
             }

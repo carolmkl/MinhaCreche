@@ -135,9 +135,9 @@
                             login: vLogin,
                             senha: vSenha
                         }, function (retorno) {
-                            console.log(retorno);
+                            //console.log(retorno);
                             var dadosRetorno = JSON.parse(retorno);
-                            console.log(dadosRetorno);
+                            //console.log(dadosRetorno);
                             if (dadosRetorno == true) {
                                 window.location.replace("funcionarios.php");
                             } else {

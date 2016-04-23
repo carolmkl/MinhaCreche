@@ -83,7 +83,10 @@
                         erros[erros.length] = "Observação inválida. Somente letras e números de tamanho mínimo 3."
                         $("#observacao").css("border-color", "red");
                     }
-
+                    if(arrayResponsavel.length == 0){
+                        erros[erros.length] = "Adicione algum responsavel."
+                    }
+                    
                     if(erros.length == 0){
                             $.post("../code/criancaCRUD.php", {
                             operacao: vOpcao,    
@@ -91,7 +94,8 @@
                             nome : vNome,
                             dtNascimento : vDtNascimento,
                             genero : vGenero,
-                            observacao : vObservacao
+                            observacao : vObservacao,
+                            responsaveis: JSON.stringify(arrayResponsavel)
                         }, function (retorno) {
                             console.log(retorno);
                             var dadosRetorno = JSON.parse(retorno);
@@ -140,14 +144,14 @@
                 
                 if(vIdCrianca != 0){
                     $.post("../code/criancaCRUD.php", {operacao : 2, id_crianca: vIdCrianca}, function (retorno) {
-                        //var dados = JSON.parse(retorno);
+                        var dados = JSON.parse(retorno);
                         console.log(retorno);
                         
-                       /* $("#nome").val(dados[0].nome);
+                       $("#nome").val(dados[0].nome);
                         $("#dtNascimento").val(dados[0].dtNascimento);
                         $("#genero").val(dados[0].genero);
                         $("#observacao").val(dados[0].obs);
-                        $("#idCrianca").val(dados[0].id_crianca);*/
+                        $("#idCrianca").val(dados[0].id_crianca);
                         
                     });
                 }
@@ -177,18 +181,18 @@
                             echo "<h1 class='space'>Editar Criança</h1>";
                         }
                     ?>
-                    <input type="hidden" id="idResponsavel" value="<?php echo $f; ?>">
+                    <input type="hidden" id="idCrianca" value="<?php echo $f; ?>">
                     <div class="space">
                         <fieldset class="fieldset_border">
                             <legend>Dados da Criança</legend>
-                            <label class="text" for="nome">Nome</label> <input class="text_big" type="text" id="name" name="nome" autofocus><br>
+                            <label class="text" for="nome">Nome</label> <input class="text_big" type="text" id="nome" name="nome" autofocus><br>
                             <label class="text" for="dtNascimento">Data de Nascimento</label> <input type="date" id="dtNascimento" name="nascimento">
                             <br>
 
                             <label class="text" for="genero">Gênero</label>
                             <select class="dropdown" id="genero" name="genero" >
                                 <option value="">Selecione</option>
-                                <option value="M">Mesculino</option>
+                                <option value="M">Masculino</option>
                                 <option value="F">Feminino</option>
                             </select><br>
                             <br>

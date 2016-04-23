@@ -16,7 +16,7 @@
                 window.location = "responsavel_form.php?id="+id;
             }
             
-            function deleteFuncionario(id_reponsavel, id_pessoaFisica){
+            function deleteResponsavel(id_reponsavel, id_pessoaFisica){
                 // Validações decentes //
                 if(confirm("Deseja excluir esse responsável?")){
                     $.post("../code/responsavelCRUD.php", 
@@ -42,7 +42,7 @@
                             '<tr><td>' + dados[i].nome + '</td>' + 
                             '<td>' + dados[i].telefone + '</td>' + 
                             '<td>' + dados[i].celular + '</td>'+
-                            '<td><button class="btn btn-sm btn-danger" onclick="deleteFuncionario(' + dados[i].id_responsavel+', ' + dados[i].id_pessoaFisica + ')">Excluir</button>' + 
+                            '<td><button class="btn btn-sm btn-danger" onclick="deleteResponsavel(' + dados[i].id_responsavel+', ' + dados[i].id_pessoaFisica + ')">Excluir</button>' + 
                             '<button class="btn btn-sm btn-info" id=' + dados[i].id_responsavel + ' onclick="callform(this.id)">Editar</button></td></tr>');
 			         }
                 });
