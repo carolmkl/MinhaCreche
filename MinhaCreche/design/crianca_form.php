@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Minha Creche</title>
+        <!--<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">-->
         <link rel="stylesheet" href="css/estilo_menu3.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_conteudo.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
@@ -144,14 +145,30 @@
                 
                 if(vIdCrianca != 0){
                     $.post("../code/criancaCRUD.php", {operacao : 2, id_crianca: vIdCrianca}, function (retorno) {
-                        var dados = JSON.parse(retorno);
-                        console.log(retorno);
+                        var dadosC = JSON.parse(retorno);
+                        //console.log(retorno);
                         
-                       $("#nome").val(dados[0].nome);
-                        $("#dtNascimento").val(dados[0].dtNascimento);
-                        $("#genero").val(dados[0].genero);
-                        $("#observacao").val(dados[0].obs);
-                        $("#idCrianca").val(dados[0].id_crianca);
+                       $("#nome").val(dadosC[0].nome);
+                        $("#dtNascimento").val(dadosC[0].dtNascimento);
+                        $("#genero").val(dadosC[0].genero);
+                        $("#observacao").val(dadosC[0].obs);
+                        $("#idCrianca").val(dadosC[0].id_crianca);
+                        
+                        $.post("../code/criancaCRUD.php", {operacao : 6, id_crianca: vIdCrianca}, function (retorno) {
+                            var reponsaveis = JSON.parse(retorno);
+                            console.log(reponsaveis);
+                            console.log(dados);
+                            for(i = 0; i<reponsaveis.length; i++){
+                                for(j=0; j<dados.length;j++){
+                                    if(Number(dados[j].id_responsavel) == Number(reponsaveis[i].id_responsavel)){
+                                        var responsavel = {indice: j, id: dados[j].id_responsavel, parentesco: reponsaveis[i].parentesco};
+                                        arrayResponsavel[arrayResponsavel.length] = responsavel;
+                                        j = dados.length;
+                                    }
+                                }
+                            }
+                            preencheTabela();
+                        });
                         
                     });
                 }

@@ -83,12 +83,11 @@
         echo $json_response = json_encode($result);
     }
 
-    function responsavelDelete(){
-        $id_responsavel = $_REQUEST['id_responsavel'];
-        $id_pessoa =  $_REQUEST['id_pessoaFisica'];
+    function criancaDelete(){
+        $id_crianca = $_REQUEST['id_crianca'];
 
-        $sql = "DELETE FROM responsavel where id_responsavel = '$id_responsavel';
-        DELETE FROM usuario WHERE id_PessoaFisica = '$id_pessoa';";
+        $sql = "DELETE FROM responsavelcrianca where id_crianca = '$id_crianca';
+        DELETE FROM crianca WHERE id_crianca = '$id_crianca';";
         //print $sql;
 
         $result = $GLOBALS['conn']->multi_query($sql) or die($GLOBALS['conn']->error.__LINE__);
@@ -99,15 +98,18 @@
     function criancaResponsavelGet(){
         $id_crianca = $_REQUEST['id_crianca'];
 
-        $sql="select r.* from minhacreche.responsavelcrianca c where r.id_crianca = $id_crianca;";
+        $sql="select r.* from minhacreche.responsavelcrianca r where r.id_crianca = $id_crianca;";
 
         //echo $sql;
 
         $result = $GLOBALS['conn']->query($sql) or die($GLOBALS['conn']->error.__LINE__);
 
+        
         $arr = array();
         if($result->num_rows > 0) {
-            $arr[] = $result->fetch_assoc();
+            while($row = $result->fetch_assoc()) {
+                $arr[] = $row;	
+            }
         }
         mysqli_close($GLOBALS['conn']);
         # JSON-encode the response
@@ -115,7 +117,6 @@
     }
 
     $operacao = $_REQUEST['operacao'];
-
 
 
     // Listar 1
@@ -133,7 +134,7 @@
     } elseif ($operacao == 4){
         criancaUpdate();
     } elseif ($operacao == 5){
-        //responsavelDelete();
+        criancaDelete();
     } elseif ($operacao == 6){
         criancaResponsavelGet();
     }
