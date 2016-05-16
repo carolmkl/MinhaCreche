@@ -76,6 +76,7 @@
             $string = strtoupper($responsavel->parentesco);
             $sql .= "INSERT INTO responsavelcrianca (id_responsavel, id_crianca, parentesco) VALUES ('{$responsavel->id}', '$id_crianca', '$string');";    
         }
+        unset($responsavel);
         //print $sql;
         $result = $GLOBALS['conn']->multi_query($sql) or die($GLOBALS['conn']->error.__LINE__);
         

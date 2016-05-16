@@ -38,8 +38,6 @@
                     for(var i=0;dados.length>i;i++){
                         $('#corpoTabela').append(
                             '<tr><td>' + dados[i].nome + '</td>' + 
-                            //'<td>' + dados[i].telefone + '</td>' + 
-                            //'<td>' + dados[i].celular + '</td>'+
                             '<td><button class="btn btn-sm btn-danger" onclick="deleteCrianca(' + dados[i].id_crianca + ')">Excluir</button>' + 
                             '<button class="btn btn-sm btn-info" id=' + dados[i].id_crianca + ' onclick="callform(this.id)">Editar</button></td></tr>');
 			         }
@@ -53,7 +51,7 @@
         </script>
     </head>
     <body>
-        <div>
+        <div class="container-fluid">
             <?php include '../code/valida_user.php' ?>
             <?php include 'menu_principal.php' ?>
 

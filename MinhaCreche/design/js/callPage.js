@@ -2,6 +2,6 @@ function callRegister(pageCall, whoRegister){
     window.location.replace(pageCall);
 }
 
-function goBack() {
-    window.history.back();
+function goBack(pageCall) {
+    window.location.replace(pageCall);
 }

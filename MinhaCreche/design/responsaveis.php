@@ -55,7 +55,7 @@
         </script>
     </head>
     <body>
-        <div>
+        <div class="container-fluid">
             <?php include '../code/valida_user.php' ?>
             <?php include 'menu_principal.php' ?>
 

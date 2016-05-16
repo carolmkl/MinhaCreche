@@ -13,11 +13,10 @@
         <script src="js/callPage.js"></script>
         <script src="js/vadilacoes.js"></script>
         <?php include 'import.php' ?>
-        <?php include '../code/valida_user.php' ?>
         
         <script type="text/javascript">
             
-            $(document).ready(function (e) {
+           /* $(document).ready(function (e) {
                 var vIdFunc = Number($("#idFuncionario").val());
                 $("#submit").click(function (e) {
                     var vLogin = $("#login").val(), 
@@ -186,31 +185,17 @@
                         $("#login").val(dados[0].login);
                     });
                 }
-            });
+            });*/
         </script>
     </head>
     <body>
         <div class="container-fluid">
-            <?php include 'menu_principal.php' ?>
-            <?php
-                $f = 0;
-                if(isset($_REQUEST["id"])){
-                    $f = $_REQUEST["id"];
-                }
-            ?>
+            
 
-            <div class="conteiner">
-                <form action="" autocomplete="on" method="post" id="form" role="form"> <!--ng-app="minhaCrecheApp" ng-controller="funcionarioCtrl" ng-submit="salvaFuncionario(login,senha,nome,cpf,rg,email,telefone,celular,ndtNascimento,genero,logradouro,numero,bairro,cidade,estado,observacao,cargo)" --> 
-                    <?php
-                        if($f == 0){
-                            echo "<h1 class='space'>Adicionar Funcionário</h1>";
-                        } else {
-                            echo "<h1 class='space'>Editar Funcionário</h1>";
-                        }
-                    ?>
-                    <input type="hidden" id="idFuncionario" value="<?php echo $f; ?>">
-                    <input type="hidden" id="idPessoa" value="">
-                    <div class="spacee">
+            <div class="center-block">
+                <form action="login.html" autocomplete="on" method="post" id="form" role="form">
+                    <h1>Diretor da Creche</h1>
+                    <div class="center-block">
 
                         <fieldset>
                             <legend>Acesso ao Sistema</legend>
@@ -230,43 +215,43 @@
                             <legend>Dados Pessoais</legend>
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="name">Nome<sup>*</sup></label>
-                                    <input class="form-control" type="text" id="nome" ng-model="nome"> 
+                                    <label for="nameD">Nome<sup>*</sup></label>
+                                    <input class="form-control" type="text" id="nomeD"> 
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="rg">RG<sup>*</sup></label>
-                                    <input class="form-control" type="text" id="rg" ng-model="rg" >
+                                    <label for="rgD">RG<sup>*</sup></label>
+                                    <input class="form-control" type="text" id="rgD">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="cpf">CPF<sup>*</sup></label>
-                                    <input class="form-control" type="text" id="cpf" ng-model="cpf" >
+                                    <label for="cpfD">CPF<sup>*</sup></label>
+                                    <input class="form-control" type="text" id="cpfD">
                                 </div>
                             </div>
                                 
                             <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input class="form-control" type="email" id="email" ng-model="email" >
+                                <label for="emailD">E-mail</label>
+                                <input class="form-control" type="email" id="emailD">
                             </div>
                             
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="telefone">Telefone<sup>*</sup></label>
-                                    <input class="form-control" type="tel" id="telefone" ng-model="telefone" >
+                                    <label for="telefoneD">Telefone<sup>*</sup></label>
+                                    <input class="form-control" type="tel" id="telefoneD">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="celular">Celular</label>
-                                    <input class="form-control" type="tel" id="celular" ng-model="celular" >
+                                    <label for="celulaDr">Celular</label>
+                                    <input class="form-control" type="tel" id="celularD">
                                 </div>
                             </div>
                             
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="nascimento">Data de Nascimento<sup>*</sup></label>
-                                    <input class="form-control" type="date" id="dtNascimento" ng-model="dtNascimento" >
+                                    <label for="nascimentoD">Data de Nascimento<sup>*</sup></label>
+                                    <input class="form-control" type="date" id="dtNascimentoD">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="text" for="genero">Gênero<sup>*</sup></label>
-                                    <select placeholder="Selecione" class="dropdown form-control" id="genero" ng-model="genero" >
+                                    <label class="text" for="generoD">Gênero<sup>*</sup></label>
+                                    <select placeholder="Selecione" class="dropdown form-control" id="generoD">
                                         <option value="">Selecione</option>
                                         <option value="M">Masculino</option>
                                         <option value="F">Feminino</option>
@@ -281,43 +266,40 @@
                             <legend>Endereço</legend>
                             <div class="row">
                                 <div class="form-group col-md-9">
-                                    <label for="logradouro">Logradouro<sup>*</sup></label>
-                                    <input class="form-control" type="text" id="logradouro" ng-model="logradouro" > 
+                                    <label for="logradouroD">Logradouro<sup>*</sup></label>
+                                    <input class="form-control" type="text" id="logradouroD"> 
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="num">Numero<sup>*</sup></label>
-                                    <input class="form-control" type="number" id="numero" ng-model="numero" >
+                                    <label for="numeroD">Numero<sup>*</sup></label>
+                                    <input class="form-control" type="number" id="numeroD">
                                 </div>
                             </div>    
                             
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="bairro">Bairro<sup>*</sup></label>
-                                    <input class="form-control" type="text" id="bairro" ng-model="bairro" > 
+                                    <label for="bairroD">Bairro<sup>*</sup></label>
+                                    <input class="form-control" type="text" id="bairroD"> 
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="city">Cidade<sup>*</sup></label>
-                                    <input class="form-control" type="text" id="cidade" ng-model="cidade" >
+                                    <label for="cidadeD">Cidade<sup>*</sup></label>
+                                    <input class="form-control" type="text" id="cidadeD">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="state">Estado<sup>*</sup></label>
-                                    <input class="form-control" type="text" id="estado" ng-model="estado" >
+                                    <label for="estadoD">Estado<sup>*</sup></label>
+                                    <input class="form-control" type="text" id="estadoD">
                                 </div>
                             </div>    
                             <div class="form-group">
-                                <label for="obs">Observação</label> 
-                                <input class="form-control" type="text" id="observacao" ng-model="observacao" >
+                                <label for="observacaoD">Observação</label> 
+                                <input class="form-control" type="text" id="observacaoD">
                             </div>
                         </fieldset>
 
                         <br>
                         <div class="form-group">
-                            <label for="cargo">Perfil<sup>*</sup></label>
-                            <select class="dropdown form-control" for="cargo" id="cargo" ng-model="cargo" >
-                                <option value="">Selecione</option>
+                            <label for="cargoD">Perfil<sup>*</sup></label>
+                            <select class="dropdown form-control" for="cargo" id="cargoD" disabled>
                                 <option value="Diretor">Diretor</option>
-                                <option value="Secretário">Secretário</option>
-                                <option value="Professor">Professor</option>
                             </select>
                         </div>
 
@@ -326,8 +308,8 @@
                         <br>
 
                         <p> 
-                            <input class="btn btn-success" id="submit" type="button" value="Confirmar" /><!--ng-click="salvaFuncionario(login,senha,nome,cpf,rg,email,telefone,celular,ndtNascimento,genero,logradouro,numero,bairro,cidade,estado,observacao,cargo)"-->
-                            <input class="btn btn-danger" type="button" value="Cancelar" onclick="goBack('funcionarios.php')">
+                            <input class="btn btn-success" id="submit" type="submit" value="Confirmar" />
+                            <input class="btn btn-danger" type="button" value="Cancelar" onclick="goBack()">
                         </p>
                     </div>
                 </form>

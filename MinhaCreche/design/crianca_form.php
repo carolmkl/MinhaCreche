@@ -3,13 +3,14 @@
     <head>
         <meta charset="utf-8">
         <title>Minha Creche</title>
-        <!--<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">-->
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_menu3.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_conteudo.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
         <script src="js/vadilacoes.js"></script>
         <?php include '../code/valida_user.php' ?>
         <?php include 'import.php' ?>
+        <script src="js/bootstrap.min.js"></script>
         <script src="js/callPage.js"></script>
         
         <script type="text/javascript">
@@ -39,6 +40,7 @@
                     $('#corpoTabela').append(
                         '<tr><td>' + dados[arrayResponsavel[i].indice].nome + '</td>' +
                         '<td>' + dados[arrayResponsavel[i].indice].cpf + '</td>' +
+                        '<td>' + arrayResponsavel[i].parentesco + '</td>' +
                         '<td><button type="button" class="btn btn-sm btn-danger" onclick="deleteResponsavel(' + i + ')">Excluir</button></td></tr>');
 			         }
             }
@@ -133,7 +135,8 @@
                         var responsavel = {indice: indice, id: dados[indice].id_responsavel, parentesco: vParentesco};
                         arrayResponsavel[arrayResponsavel.length] = responsavel;
                         preencheTabela();
-                        
+                        $("#responsaveis").val("");
+                        $("#parentesco").val("");
                     } else {
                         var msg = "Corrija estes erros:";
                         for (var i = 0; i<erros.length; i++) {
@@ -181,7 +184,7 @@
 
     </head>
     <body>
-        <div>
+        <div class="container-fluid">
             <?php include 'menu_principal.php';
                 $f = 0;
                 if(isset($_REQUEST["id"])){
@@ -190,7 +193,7 @@
             ?>
 
             <div class="conteiner">
-                <form action="" autocomplete="on" method="post" id="form" >
+                <form action="" autocomplete="on" method="post" id="form" role="form">
                     <?php
                         if($f == 0){
                             echo "<h1 class='space'>Adicionar Criança</h1>";
@@ -199,52 +202,68 @@
                         }
                     ?>
                     <input type="hidden" id="idCrianca" value="<?php echo $f; ?>">
-                    <div class="space">
-                        <fieldset class="fieldset_border">
+                    <div class="spacee">
+                        <fieldset>
                             <legend>Dados da Criança</legend>
-                            <label class="text" for="nome">Nome</label> <input class="text_big" type="text" id="nome" name="nome" autofocus><br>
-                            <label class="text" for="dtNascimento">Data de Nascimento</label> <input type="date" id="dtNascimento" name="nascimento">
-                            <br>
+                            <div class="form-group">
+                                <label for="nome">Nome<sup>*</sup></label> 
+                                <input class="form-control" type="text" id="nome" name="nome" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="dtNascimento">Data de Nascimento<sup>*</sup></label> 
+                                <input class="form-control" type="date" id="dtNascimento" name="nascimento">
+                            </div>
 
-                            <label class="text" for="genero">Gênero</label>
-                            <select class="dropdown" id="genero" name="genero" >
-                                <option value="">Selecione</option>
-                                <option value="M">Masculino</option>
-                                <option value="F">Feminino</option>
-                            </select><br>
-                            <br>
-                            <label class="text" for="observacao">Observação</label> <br>
-                            <textarea  class="text" rows="10" cols="100" id="observacao" name="observacao" ></textarea>
+                            <div class="form-group">
+                                <label for="genero">Gênero<sup>*</sup></label>
+                                <select class="dropdown form-control" id="genero" name="genero" >
+                                    <option value="">Selecione</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Feminino</option>
+                                </select>
+                            </div> 
+                            
+                            <div class="form-group">
+                                <label for="observacao">Observação</label> <br>
+                                <textarea  class="form-control" rows="10" cols="100" id="observacao" name="observacao" ></textarea>
+                            </div>
+                            
                         </fieldset>
                         <br>
-                        <br>
 
-                        <fieldset class="fieldset_border">
-                            <legend>Responsáveis</legend>
-                            <label for="responsaveis">Responsável</label>
-                            <select class="dropdown" id="responsaveis" name="responsaveis" >
-                            </select>
-                            <br>
-                            <label for="parentesco">Parentesco</label>
-                            <input class="text" type="text" id="parentesco">
+                        <fieldset>
+                            <legend>Responsáveis<sup>*</sup></legend>
+                            <div class="form-group">
+                                <label for="responsaveis">Responsável</label>
+                                <select class="dropdown form-control" id="responsaveis" name="responsaveis" >
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="parentesco">Parentesco</label>
+                                <input class="form-control" type="text" id="parentesco">
+                            </div>    
                             <button type="button" id="adicionarResponsavel">Adicionar</button>
                             <br>
-                            <!--melhorar a tabela-->
+                            <br>
                             <table>
                                 <tr>
                                     <th>Nome</th>
                                     <th>CPF</th>
+                                    <th>Parentesco</th>
                                     <th></th>
                                 </tr>
                                 <tbody table id="corpoTabela">
                                 </tbody>
                             </table>
-                            <br>
                         </fieldset>
-
+                        
+                        <br>
+                        <p id="obrigatorio"><sup>*</sup> Campos obrigatórios</p>
+                        <br>
+                        
                         <p> 
-                            <input id="submit" type="button" value="Confirmar" />
-                            <input type="button" value="Cancelar" onclick="goBack()">
+                            <input class="btn btn-success" id="submit" type="button" value="Confirmar" />
+                            <input class="btn btn-danger" type="button" value="Cancelar" onclick="goBack('criancas.php')">
                         </p>
                     </div>
                 </form>

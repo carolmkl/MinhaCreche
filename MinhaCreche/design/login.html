@@ -3,24 +3,45 @@
     <head>
         <meta charset="utf-8">
         <title>Minha Creche</title>
-        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-        <script src="http://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+        <!--<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <!--<script src="http://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="css/estilo_index.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
         <script src="js/login.js"></script>
+        <script type="text/javascript">
+            $("document").ready(function() {
+                $("#esqueciSenha").click(function(e) {
+                    var vLogin = $("#login").val();
+                    if(vLogin.length == 0){
+                        alert("Informe o seu login para mandarmos um e-mail\npara solucionar o problema");
+                    } else {
+                        $.post("../code/novaSenha.php", {
+                            login: vLogin
+                        }, function (retorno) {
+                            var dado = JSON.parse(retorno);
+                            if(dado == true){
+                                alert("Um e-mail foi enviado com a sua nova senha");
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <div id="center">
             <img id="logo" src="img/logo2_0_100.png" alt="Minha Creche">
             <form method="post">
                 <label id="text">Minha Creche</label><br>
-                <input class="width" type="text" value="" size="20" name="login" id="login" required><br>
-                <input class="width" type="password" value="" size="20" name="password" id="password" required><br>
+                <input class="width" type="text" value="" size="20" name="login" id="login" placeholder="login" required><br>
+                <input class="width" type="password" value="" size="20" name="password" id="password" placeholder="password" required><br>
                 <input class="width" type="button" value="Entrar" id="enter">
             </form>
             <div id="erro">Usuario ou Senha inválidos</div>
-            <a href="#">Não Tenho Usuario</a><br>
-            <a href="#">Esqueci Minha Senha</a>
+            <!--<a href="novaCreche.php">Não Tenho Usuario</a><br>-->
+            <a href="#" id="esqueciSenha">Esqueci Minha Senha</a>
         </div>
     </body>
 </html>
