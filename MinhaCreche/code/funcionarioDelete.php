@@ -9,7 +9,7 @@ DELETE FROM usuario WHERE id_PessoaFisica = '$id_pessoa';";
 print $sql;
 
 $result = $conn->multi_query($sql) or die($conn->error.__LINE__);
-
+mysqli_close($conn);
 echo $json_response = json_encode($result);
 
 ?>

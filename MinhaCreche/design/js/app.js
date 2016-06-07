@@ -42,9 +42,11 @@
         listFuncionarios();
 
 		$scope.deleteFuncionario = function (id_funcionario, id_pessoafisica) {
-			$http.post("./../code/funcionarioDelete.php?id_funcionario=" + id_funcionario+"&id_pessoaFisica="+id_pessoafisica).success(function (data) {
-				listFuncionarios();
-			});
+            if(confirm("Deseja excluir este funcionário?")){
+			     $http.post("./../code/funcionarioDelete.php?id_funcionario=" + id_funcionario+"&id_pessoaFisica="+id_pessoafisica).success(function(data) {
+				    listFuncionarios();
+			     });
+            }
 		};
 
 		$scope.openModalAddFuncionario = function (size, options, index) {

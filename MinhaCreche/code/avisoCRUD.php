@@ -10,7 +10,8 @@
         
         if($nivel < 4){
             // exibir/enviado
-            $sql="select a.*, p.nome, d.dtLido from minhacreche.aviso a INNER JOIN destinatario d ON d.id_Aviso = a.id_Aviso INNER JOIN pessoafisica p ON a.id_pessoaFisica = p.id_pessoaFisica WHERE d.id_pessoaFisica = '$id_pessoaFisica' AND a.nivel = '$nivel' AND dataEntrega <= NOW() ORDER BY a.dataEntrega DESC;";
+//            $sql="select a.*, p.nome, d.dtLido from minhacreche.aviso a INNER JOIN destinatario d ON d.id_Aviso = a.id_Aviso INNER JOIN pessoafisica p ON a.id_pessoaFisica = p.id_pessoaFisica WHERE d.id_pessoaFisica = '$id_pessoaFisica' AND a.nivel = '$nivel' AND dataEntrega <= NOW() ORDER BY a.dataEntrega DESC;";
+            $sql="select a.*, p.nome, d.dtLido from minhacreche.aviso a INNER JOIN destinatario d ON d.id_Aviso = a.id_Aviso INNER JOIN pessoafisica p ON a.id_pessoaFisica = p.id_pessoaFisica WHERE d.id_pessoaFisica = '$id_pessoaFisica' AND dataEntrega <= NOW() ORDER BY a.dataEntrega DESC;";
         } else {
             // exibir/não enviado
             $sql="select a.*, c.nome from minhacreche.aviso a INNER JOIN crianca c ON a.id_crianca = c.id_crianca WHERE a.id_pessoaFisica = '$id_pessoaFisica' AND dataEntrega > NOW() ORDER BY a.dataEntrega;";

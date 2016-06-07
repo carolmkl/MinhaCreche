@@ -14,36 +14,53 @@
         
         $pode = true;
         $senha = "";
+        $senhaHash = "";
         while($pode){
             $senha = chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . rand(0,9) . rand(0,9) . rand(0,9);
+            $senhaHash = password_hash($senha, PASSWORD_BCRYPT);
             $pode = false;
             foreach($arr as $value){
-                if(password_verify($senha, $value['senha'])){
+                if(password_verify($senha, $value['senha']) || $value['senha'] == $senhaHash){
                     $pode = true;
+                    break;
                 }
             }
             unset($value);
         }
         
-        $sql = "SELECT pf.email FROM pessoafisica pf INNER JOIN usuario u ON pf.id_pessoaFisica = u.id_pessoaFisica WHERE u.login = '$login';";
+        $sql = "UPDATE usuario SET senha = '$senhaHash' WHERE login = '$login';";
         $result=mysqli_query($conn,$sql);
         //echo $sql;
         //echo json_encode($result);
-        if($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            if(strlen($row['email'])>0){
-                    // the message
-                $msg = "Sua nova senha do Minha Creche é: '$senha'";
+        if($result) {
+            $sql = "SELECT pf.email FROM pessoafisica pf INNER JOIN usuario u ON pf.id_pessoaFisica = u.id_pessoaFisica WHERE u.login = '$login';";
+            $result=mysqli_query($conn,$sql);
+            //echo $sql;
+            //echo json_encode($result);
+            if($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                if(strlen($row['email'])>0){
+                        // the message
+                    $msg = "Sua nova senha do Minha Creche é: '$senha'";
 
-                // use wordwrap() if lines are longer than 70 characters
-                $msg = wordwrap($msg,70);
+                    // use wordwrap() if lines are longer than 70 characters
+                    $msg = wordwrap($msg,70);
 
-                // send email
-                $resultado = mail($row['email'],"Nova senha",$msg);   
-                echo json_encode($resultado);
+                    // send email
+                    $resultado = mail($row['email'],"Nova senha",$msg);   
+                    echo json_encode($resultado);
+                } else {
+                    echo json_encode(false);    
+                }
+            } else {
+                echo json_encode(false);
             }
+        } else {
+            echo json_encode(false);
         }
     } else {
         echo json_encode(false);
     }
+
+    mysqli_close($conn);
 ?>

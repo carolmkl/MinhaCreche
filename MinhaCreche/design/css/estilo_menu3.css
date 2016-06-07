@@ -3,7 +3,8 @@
 body{
     background-color: #F3FFBD;
     margin: 0;
-    padding: 0;
+    padding: 0 0 0 14em;
+	
 }
 
 #logo{
@@ -62,12 +63,12 @@ body{
 
 /*Cabeçalho*/
 #header{
-    width: 85%;
+    width: 100%;
     height: 3em;
     margin-top: 1em;
     position: relative;
     float: right;
-    z-index: 1000;
+    z-index: 20;
 }
 
 .text_header{
@@ -82,4 +83,38 @@ body{
 
 .space_header a{
     color: #000000;
+}
+
+.botaoMenu{
+	display: none;
+	position: absolute;
+	left: 100%;
+	margin-left: 10px;
+	top: 10px;
+}
+
+@media (max-width: 750px){
+	#menu{
+		left: -14em;
+		z-index: 20;
+		transition: left 300ms ease-in-out;
+	}	
+	#menu.open{
+		left: 0;
+	}
+	
+	body{
+		padding-left: 0;
+	}
+	
+	.botaoMenu{
+		display: block;
+	}
+}
+
+@media (max-height: 500px){
+	.box a{
+		border-bottom: 1px solid #F3FFBD;
+		padding: 0.1em;
+	}
 }

@@ -51,6 +51,32 @@
                 preencheTabela();
             }
             
+            function apagaErro(){
+                $("#divNome").removeClass("has-error");
+                $("#erroNome").hide();
+                $("#divData").removeClass("has-error");
+                $("#erroData").hide();
+                $("#divGenero").removeClass("has-error");
+                $("#erroGenero").hide();
+                $("#divObs").removeClass("has-error");
+                $("#erroObs").hide();
+                $("#divResponsavelErro").removeClass("has-error");
+                $("#erroResp").hide();
+            }
+            
+            function apagaErroResp(){
+                $("#divRespSel").removeClass("has-error");
+                $("#erroRespSel").hide();
+                $("#divParentesco").removeClass("has-error");
+                $("#erroParentesco").hide();
+            }
+			
+			function goTo(local){
+				$('html, body').animate({
+					scrollTop: $(local).offset().top
+				});
+			}
+            
             //documento pronto
             $(document).ready(function() {
                 loadResponsaveis();
@@ -70,24 +96,55 @@
                     }
                     
                     var erros = [];
+					
+					var erro = false;
+                    
+                    apagaErro();
                     
                     if(!validaNome(vNome)){
-                        erros[erros.length] = "Nome inválido. Somente letras e números de tamanho mínimo 3."
-                        $("#nome").css("border-color", "red");
+                        erros[erros.length] = "Nome inválido. Somente letras e números de tamanho mínimo 3.";
+                        $("#divNome").addClass("has-error");
+                        $("#erroNome").show();
+						if(!erro){
+							erro = true;
+							goTo("#divNome");
+						}
                     }
                     if(vDtNascimento == ""){
-                        erros[erros.length] = "Data de nascimento inválida. Informe uma data."
-                        $("#dtNascimento").css("border-color", "red");
+                        erros[erros.length] = "Data de nascimento inválida. Informe uma data.";
+                        $("#divData").addClass("has-error");
+                        $("#erroData").show();
+						if(!erro){
+							erro = true;
+							goTo("#divData");
+						}
                     }
                     if(vGenero == ""){
-                        erros[erros.length] = "Selecione o Gênero."
+                        erros[erros.length] = "Selecione o Gênero.";
+                        $("#divGenero").addClass("has-error");
+                        $("#erroGenero").show();
+						if(!erro){
+							erro = true;
+							goTo("#divGenero");
+						}
                     }
                     if(vObservacao != "" && !validaNome(vObservacao)){
-                        erros[erros.length] = "Observação inválida. Somente letras e números de tamanho mínimo 3."
-                        $("#observacao").css("border-color", "red");
+                        erros[erros.length] = "Observação inválida. Somente letras e números de tamanho mínimo 3.";
+                        $("#divObs").addClass("has-error");
+                        $("#erroObs").show();
+						if(!erro){
+							erro = true;
+							goTo("#divObs");
+						}
                     }
                     if(arrayResponsavel.length == 0){
-                        erros[erros.length] = "Adicione algum responsavel."
+                        erros[erros.length] = "Adicione algum responsavel.";
+                        $("#divResponsavelErro").addClass("has-error");
+                        $("#erroResp").show();
+						if(!erro){
+							erro = true;
+							goTo("#divRespSel");
+						}
                     }
                     
                     if(erros.length == 0){
@@ -114,7 +171,7 @@
                         for (var i = 0; i<erros.length; i++) {
                             msg += "\n" + erros[i];
                         }
-                        alert(msg);
+						alert("Olhar os campos em vermelho");
                     }
                     
                 });
@@ -123,11 +180,18 @@
                     var vResponsavel = $("#responsaveis").val(),
                         vParentesco = $("#parentesco").val();
                     var erros = [];
+                    
+                    apagaErroResp();
+                    
                     if(vResponsavel == ""){
-                        erros[erros.length] = "Selecione o Responsável."
+                        erros[erros.length] = "Selecione o Responsável.";
+                        $("#divRespSel").addClass("has-error");
+                        $("#erroRespSel").show();
                     }
                     if(!validaNome(vParentesco)){
-                        erros[erros.length] = "Parentesco inválida. Somente letras e números de tamanho mínimo 3."
+                        erros[erros.length] = "Parentesco inválida. Somente letras e números de tamanho mínimo 3.";
+                        $("#divParentesco").addClass("has-error");
+                        $("#erroParentesco").show();
                     }
                     
                     if(erros.length == 0) {
@@ -142,7 +206,7 @@
                         for (var i = 0; i<erros.length; i++) {
                             msg += "\n" + erros[i];
                         }
-                        alert(msg);
+                        alert("Olhar os campos em vermelho ou as tabelas com mensagens embaixo");
                     }
                 });
                 
@@ -205,27 +269,31 @@
                     <div class="spacee">
                         <fieldset>
                             <legend>Dados da Criança</legend>
-                            <div class="form-group">
+                            <div id="divNome" class="form-group">
                                 <label for="nome">Nome<sup>*</sup></label> 
                                 <input class="form-control" type="text" id="nome" name="nome" autofocus>
+                                <span id="erroNome" class="help-block hideContent">Nome inválido. Somente letras e números de tamanho mínimo 3.</span>
                             </div>
-                            <div class="form-group">
+                            <div id="divData" class="form-group">
                                 <label for="dtNascimento">Data de Nascimento<sup>*</sup></label> 
                                 <input class="form-control" type="date" id="dtNascimento" name="nascimento">
+                                <span id="erroData" class="help-block hideContent">Data de nascimento inválida. Informe uma data.</span>
                             </div>
 
-                            <div class="form-group">
+                            <div id="divGenero" class="form-group">
                                 <label for="genero">Gênero<sup>*</sup></label>
                                 <select class="dropdown form-control" id="genero" name="genero" >
                                     <option value="">Selecione</option>
                                     <option value="M">Masculino</option>
                                     <option value="F">Feminino</option>
                                 </select>
+                                <span id="erroGenero" class="help-block hideContent">Selecione o Gênero.</span>
                             </div> 
                             
-                            <div class="form-group">
+                            <div id="divObs" class="form-group">
                                 <label for="observacao">Observação</label> <br>
                                 <textarea  class="form-control" rows="10" cols="100" id="observacao" name="observacao" ></textarea>
+                                <span id="erroObs" class="help-block hideContent">Observação inválida. Somente letras e números de tamanho mínimo 3.</span>
                             </div>
                             
                         </fieldset>
@@ -233,14 +301,16 @@
 
                         <fieldset>
                             <legend>Responsáveis<sup>*</sup></legend>
-                            <div class="form-group">
+                            <div id="divRespSel" class="form-group">
                                 <label for="responsaveis">Responsável</label>
                                 <select class="dropdown form-control" id="responsaveis" name="responsaveis" >
                                 </select>
+                                <span id="erroRespSel" class="help-block hideContent">Selecione o Responsável.</span>
                             </div>
-                            <div class="form-group">
+                            <div id="divParentesco" class="form-group">
                                 <label for="parentesco">Parentesco</label>
                                 <input class="form-control" type="text" id="parentesco">
+                                <span id="erroParentesco" class="help-block hideContent">Parentesco inválida. Somente letras e números de tamanho mínimo 3.</span>
                             </div>    
                             <button type="button" id="adicionarResponsavel">Adicionar</button>
                             <br>
@@ -255,6 +325,9 @@
                                 <tbody table id="corpoTabela">
                                 </tbody>
                             </table>
+                            <div id="divResponsavelErro" class="form-group">
+                                <span id="erroResp" class="help-block hideContent">Adicione algum responsavel.</span>
+                            </div>
                         </fieldset>
                         
                         <br>

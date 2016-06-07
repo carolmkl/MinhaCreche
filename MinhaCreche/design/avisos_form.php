@@ -9,10 +9,10 @@
         <link rel="stylesheet" href="css/estilo_menu3.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_conteudo.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/vadilacoes.js"></script>
         <?php include '../code/valida_user.php' ?>
         <?php include 'import.php' ?>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/vadilacoes.js"></script>
         <script src="js/callPage.js"></script>
         
         <script type="text/javascript">
@@ -81,6 +81,21 @@
                     }
             }
             
+            function apagaErro(){
+                $("#divCrianca").removeClass("has-error");
+                $("#erroCrianca").hide();
+                $("#divResponsavelErro").removeClass("has-error");
+                $("#erroResp").hide();
+                $("#divMensagem").removeClass("has-error");
+                $("#erroMsg").hide();
+            }
+            
+			function goTo(local){
+				$('html, body').animate({
+					scrollTop: $(local).offset().top
+				});
+			}
+			
             $(document).ready(function() {
                 nivel = $("#nivel").val();
                 loadCriancas();
@@ -109,14 +124,28 @@
                         vOpcao = 3;
                     }
                     
+                    apagaErro();
+                    
                     var erros = [];
+					var erro = false;
+					
                     if(vId_crinca == ""){
                         erros.push("Escolha uma criança");
                         $("#divCrianca").addClass("has-error");
+                        $("#erroCrianca").show();
+						if(!erro){
+							erro = true;
+							goTo("#divCrianca");
+						}
                     }
                     if(arrayAdulto.length == 0){
                         erros.push("Tenha pelo menos um destinatário para enviar");
-                        $("#tabelaResp").addClass("has-error");
+                        $("#divResponsavelErro").addClass("has-error");
+                        $("#erroResp").show();
+						if(!erro){
+							erro = true;
+							goTo("#divResponsavel");
+						}
                     }
                     // if da data
                     /*if(){
@@ -125,6 +154,11 @@
                     if(vMessagem.length == 0){
                         erros.push("Mensagem inválida. Digite algo");
                         $("#divMensagem").addClass("has-error");
+                        $("#erroMsg").show();
+						if(!erro){
+							erro = true;
+							goTo("#divMensagem");
+						}
                     }
                     
                     if(erros.length == 0){
@@ -153,7 +187,7 @@
                         for (var i = 0; i<erros.length; i++) {
                             msg += "\n" + erros[i];
                         }
-                        alert(msg);
+						alert("Olhar os campos em vermelho");
                     }
                 });
                 
@@ -248,16 +282,18 @@
                     <div class="spacee">
                         <fieldset>
                             <legend>Dados do Aviso</legend>
-                            <div class="form-group" id="divCrianca">
+                            <div id="divCrianca" class="form-group">
                                 <label for="crianca">Criança<sup>*</sup></label>
                                 <select class="dropdown form-control" id="crianca" name="crianca" >
                                 </select>
+                                <span id="erroCrianca" class="help-block hideContent">Escolha uma criança.</span>
                             </div>
-                            <div class="form-group" id="divDtEnvio">
+                            <div id="divDtEnvio" class="form-group">
                                 <label for="dtEnvio">Data de Envio<sup>*</sup></label>
                                 <input class="form-control" type="date" id="dtEnvio" name="dtEnvio">
+                                <span id="erroData" class="help-block hideContent"></span>
                             </div>    
-                            <div class="form-group">
+                            <div id="divNivelAviso" class="form-group">
                                 <label for="nivelAviso">Nível<sup>*</sup></label>
                                 <select class="dropdown form-control" id="nivelAviso" name="nivelAviso" >
                                     <option value="3">Normal</option>
@@ -272,18 +308,21 @@
                         <fieldset id="fieldResp">
                             <legend>Destinatários<sup>*</sup></legend>
                             <!--também botão de todos responsaveis se for funcionario e se for pai com todos os funcionarios-->
-                            <div class="form-group" id="tabelaResp">
+                            <div id="divResponsavel" class="form-group" id="tabelaResp">
                                 <button type="button" id="resertTabela" class="btn btn-info">Todos</button>
                                 <br>
                                 <table>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Parentesco</th>
-                                    <th></th>
-                                </tr>
-                                <tbody table id="corpoTabela">
-                                </tbody>
-                            </table>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Parentesco</th>
+                                        <th></th>
+                                    </tr>
+                                    <tbody table id="corpoTabela">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="divResponsavelErro" class="form-group">
+                                <span id="erroResp" class="help-block hideContent">Tenha pelo menos um destinatário para enviar.</span>
                             </div>
                         </fieldset>
                         
@@ -294,6 +333,7 @@
                             <div class="form-group" id="divMensagem">
                                 <label for="messagem">Conteúdo</label>
                                 <textarea class="form-control" class="form-control col-xs-12" rows="10" id="messagem" name="messagem" ></textarea>
+                                <span id="erroMsg" class="help-block hideContent">Mensagem inválida. Digite algo.</span>
                             </div>
                         </fieldset>
                         

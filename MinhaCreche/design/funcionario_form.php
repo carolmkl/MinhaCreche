@@ -9,13 +9,59 @@
         <link rel="stylesheet" href="css/estilo_menu3.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_conteudo.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
+        <?php include 'import.php' ?>
+        <?php include '../code/valida_user.php' ?>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/callPage.js"></script>
         <script src="js/vadilacoes.js"></script>
-        <?php include 'import.php' ?>
-        <?php include '../code/valida_user.php' ?>
         
         <script type="text/javascript">
+            
+            function apagaErro(){
+                $("#divNome").removeClass("has-error");
+                $("#erroNome").hide();
+                $("#divCpf").removeClass("has-error");
+                $("#erroCpf").hide();
+                $("#erroCpf2").hide();
+                $("#divRg").removeClass("has-error");
+                $("#erroRg").hide();
+                $("#divEmail").removeClass("has-error");
+                $("#erroEmail").hide();
+                $("#divTelefone").removeClass("has-error");
+                $("#erroTelefone").hide();
+                $("#divCelular").removeClass("has-error");
+                $("#erroCelular").hide();
+                $("#divDtNascimento").removeClass("has-error");
+                $("#erroDtNascimento").hide();
+                $("#divGenero").removeClass("has-error");
+                $("#erroGenero").hide();
+                $("#divLogradouro").removeClass("has-error");
+                $("#erroLogradouro").hide();
+                $("#divNumero").removeClass("has-error");
+                $("#erroNumero").hide();
+                $("#divBairro").removeClass("has-error");
+                $("#erroBairro").hide();
+                $("#divCidade").removeClass("has-error");
+                $("#erroCidade").hide();
+                $("#divEstado").removeClass("has-error");
+                $("#erroEstado").hide();
+                $("#divObservacao").removeClass("has-error");
+                $("#erroObservacao").hide();
+                $("#divLogin").removeClass("has-error");
+                $("#erroLogin").hide();
+                $("#erroLogin2").hide();
+                $("#divSenha").removeClass("has-error");
+                $("#erroSenha").hide();
+                $("#erroSenha2").hide();
+                $("#divCargo").removeClass("has-error");
+                $("#erroCargo").hide();
+            }
+			
+			function goTo(local){
+				$('html, body').animate({
+					scrollTop: $(local).offset().top
+				});
+			}
             
             $(document).ready(function (e) {
                 var vIdFunc = Number($("#idFuncionario").val());
@@ -39,6 +85,13 @@
                         vCargo = $("#cargo").val(),
                         vIdPessoa = Number($("#idPessoa").val());
                         
+                    vCpf = vCpf.replace(/\./g,"");
+                    vCpf = vCpf.replace("-","");
+                    vTelefone = vTelefone.replace("-","");
+                    vCelular = vCelular.replace("-","");
+                    
+                    apagaErro();
+                    
                     var vDestino;
                     var verificaSenha = true;
                     if(vIdFunc != 0 ){
@@ -49,101 +102,216 @@
                     }
                     
                     var erros = [];
-                    
-                    if(!validaNome(vNome)){
-                        erros[erros.length] = "Nome inválido. Somente letras e números de tamanho mínimo 3."
-                        $("#nome").css("border-color", "red");
-                    }
-                    if(!validaCpf(vCpf)){
-                        erros[erros.length] = "CPF inválido. Somente os 11 números."
-                        $("#cpf").css("border-color", "red");
-                    }
-                    if(!validaRg(vRg)){
-                        erros[erros.length] = "RG inválido. Somente os 7 caracteres, sem pontos."
-                        $("#rg").css("border-color", "red");
-                    }
-                    if(vEmail != "" && !validaEmail(vEmail)){
-                        erros[erros.length] = "Email inválido."
-                        $("#email").css("border-color", "red");
-                    }
-                    if(!validaTelefone(vTelefone)){
-                        erros[erros.length] = "Telefone inválido. Formato (##) ####### ou (##) ########."
-                        $("#telefone").css("border-color", "red");
-                    }
-                    if(vCelular != "" && !validaTelefone(vCelular)){
-                        erros[erros.length] = "Celular inválido. Formato (##) ####### ou (##) ########."
-                        $("#celular").css("border-color", "red");
-                    }
-                    if(vDtNascimento == ""){
-                        erros[erros.length] = "Data de nascimento inválida. Informe uma data."
-                        $("#dtNascimento").css("border-color", "red");
-                    }
-                    if(vGenero == ""){
-                        erros[erros.length] = "Selecione o Gênero."
-                    }
-                    if(!validaNome(vLogradouro)){
-                        erros[erros.length] = "Logradouro inválido. Somente letras e números de tamanho mínimo 3."
-                        $("#logradouro").css("border-color", "red");
-                    }
-                    if(!validaNumero(vNumero)){
-                        erros[erros.length] = "Número inválido."
-                        $("#numero").css("border-color", "red");
-                    }
-                    if(!validaNome(vBairro)){
-                        erros[erros.length] = "Bairro inválido. Somente letras e números de tamanho mínimo 3."
-                        $("#bairro").css("border-color", "red");
-                    }
-                    if(!validaNome(vCidade)){
-                        erros[erros.length] = "Cidade inválida. Somente letras e números de tamanho mínimo 3."
-                        $("#cidade").css("border-color", "red");
-                    }
-                    if(!validaEstado(vEstado)){
-                        erros[erros.length] = "Estado inválido. Somente letras e números de tamanho mínimo 3."
-                        $("#estado").css("border-color", "red");
-                    }
-                    if(vCargo == ""){
-                        erros[erros.length] = "Selecione o Cargo."
-                    }
-                    if(vObservacao != "" && !validaNome(vObservacao)){
-                        erros[erros.length] = "Observação inválida. Somente letras e números de tamanho mínimo 3."
-                        $("#observacao").css("border-color", "red");
-                    }
+					var erro = false;
+					
                     if(!validaLogin(vLogin)){
-                        erros[erros.length] = "Login inválido. Somente letras, números e '_' de tamanho mínimo 3."
-                        $("#login").css("border-color", "red");
+                        erros[erros.length] = "Login inválido. Somente letras, números e '_' de tamanho mínimo 3.";
+                        $("#divLogin").addClass("has-error");
+                        $("#erroLogin").show();
+						if(!erro){
+							erro = true;
+							goTo("#divLogin");
+						}
                     }
                     if((verificaSenha || vSenha != "") && !validaSenha(vSenha)){
-                        erros[erros.length] = "Senha inválida. Somente letras números e os caracteres !, @, #, $, %, ^, &, *, (), _ de tamanho mínimo 6."
-                        $("#senha").css("border-color", "red");
+                        erros[erros.length] = "Senha inválida. Somente letras números e os caracteres !, @, #, $, %, ^, &, *, (), _ de tamanho mínimo 6.";
+                        $("#divSenha").addClass("has-error");
+                        $("#erroSenha").show();
+						if(!erro){
+							erro = true;
+							goTo("#divSenha");
+						}
+                    }
+                    if(!validaNome(vNome)){
+                        erros[erros.length] = "Nome inválido. Somente letras e números de tamanho mínimo 3.";
+                        $("#divNome").addClass("has-error");
+                        $("#erroNome").show();
+						if(!erro){
+							erro = true;
+							goTo("#divNome");
+						}
+                    }
+                    if(!validaRg(vRg)){
+                        erros[erros.length] = "RG inválido. Somente os 7 caracteres, sem pontos.";
+                        $("#divRg").addClass("has-error");
+                        $("#erroRg").show();
+						if(!erro){
+							erro = true;
+							goTo("#divRg");
+						}
+                    }
+                    if(!validaCpf(vCpf)){
+                        erros[erros.length] = "CPF inválido. Somente os 11 números.";
+                        $("#divCpf").addClass("has-error");
+                        $("#erroCpf").show();
+						if(!erro){
+							erro = true;
+							goTo("#divCpf");
+						}
+                    }
+                    if(vEmail != "" && !validaEmail(vEmail)){
+                        erros[erros.length] = "Email inválido.";
+                        $("#divEmail").addClass("has-error");
+                        $("#erroEmail").show();
+						if(!erro){
+							erro = true;
+							goTo("#divEmail");
+						}
+                    }
+                    if(!validaTelefone(vTelefone)){
+                        erros[erros.length] = "Telefone inválido. Formato (##) ####### ou (##) ########.";
+                        $("#divTelefone").addClass("has-error");
+                        $("#erroTelefone").show();
+						if(!erro){
+							erro = true;
+							goTo("#divTelefone");
+						}
+                    }
+                    if(vCelular != "" && !validaTelefone(vCelular)){
+                        erros[erros.length] = "Celular inválido. Formato (##) ####### ou (##) ########.";
+                        $("#divCelular").addClass("has-error");
+                        $("#erroCelular").show();
+						if(!erro){
+							erro = true;
+							goTo("#divCelular");
+						}
+                    }
+                    if(vDtNascimento == ""){
+                        erros[erros.length] = "Data de nascimento inválida. Informe uma data.";
+                        $("#divDtNascimento").addClass("has-error");
+                        $("#erroDtNascimento").show();
+						if(!erro){
+							erro = true;
+							goTo("#divDtNascimento");
+						}
+                    }
+                    if(vGenero == ""){
+                        erros[erros.length] = "Selecione o Gênero.";
+                        $("#divGenero").addClass("has-error");
+                        $("#erroGenero").show();
+						if(!erro){
+							erro = true;
+							goTo("#divGenero");
+						}
+                    }
+                    if(!validaNome(vLogradouro)){
+                        erros[erros.length] = "Logradouro inválido. Somente letras e números de tamanho mínimo 3.";
+                        $("#divLogradouro").addClass("has-error");
+                        $("#erroLogradouro").show();
+						if(!erro){
+							erro = true;
+							goTo("#divLogradouro");
+						}
+                    }
+                    if(!validaNumero(vNumero)){
+                        erros[erros.length] = "Número inválido.";
+                        $("#divNumero").addClass("has-error");
+                        $("#erroNumero").show();
+						if(!erro){
+							erro = true;
+							goTo("#divNumero");
+						}
+                    }
+                    if(!validaNome(vBairro)){
+                        erros[erros.length] = "Bairro inválido. Somente letras e números de tamanho mínimo 3.";
+                        $("#divBairro").addClass("has-error");
+                        $("#erroBairro").show();
+						if(!erro){
+							erro = true;
+							goTo("#divBairro");
+						}
+                    }
+                    if(!validaNome(vCidade)){
+                        erros[erros.length] = "Cidade inválida. Somente letras e números de tamanho mínimo 3.";
+                        $("#divCidade").addClass("has-error");
+                        $("#erroCidade").show();
+						if(!erro){
+							erro = true;
+							goTo("#divCidade");
+						}
+                    }
+                    if(!validaEstado(vEstado)){
+                        erros[erros.length] = "Estado inválido. Somente letras e números de tamanho mínimo 3.";
+                        $("#divEstado").addClass("has-error");
+                        $("#erroEstado").show();
+						if(!erro){
+							erro = true;
+							goTo("#divEstado");
+						}
+                    }
+                    if(vObservacao != "" && !validaNome(vObservacao)){
+                        erros[erros.length] = "Observação inválida. Somente letras e números de tamanho mínimo 3.";
+                        $("#divObservacao").addClass("has-error");
+                        $("#erroObservacao").show();
+						if(!erro){
+							erro = true;
+							goTo("#divObservacao");
+						}
+                    }
+                    if(vCargo == ""){
+                        erros[erros.length] = "Selecione o Cargo.";
+                        $("#divCargo").addClass("has-error");
+                        $("#erroCargo").show();
+						if(!erro){
+							erro = true;
+							goTo("#divCargo");
+						}
                     }
 
                     if(erros.length == 0){
-                            $.post(vDestino, {
-                            id_funcionario : vIdFunc,
+                            $.post("../code/verificacao.php", {
+                            operacao : 1,
                             id_pessoafisica : vIdPessoa,
-                            nome : vNome,
                             cpf : vCpf,
-                            rg : vRg,
-                            email : vEmail,
-                            telefone : vTelefone,
-                            celular : vCelular,
-                            dtNascimento : vDtNascimento,
-                            genero : vGenero,
-                            logradouro : vLogradouro,
-                            numero : vNumero,
-                            bairro : vBairro,
-                            cidade : vCidade,
-                            estado : vEstado,
-                            observacao : vObservacao,
-                            cargo : vCargo,
                             login: vLogin,
                             senha: vSenha
-                        }, function (retorno) {
-                            //console.log(retorno);
-                            var dadosRetorno = JSON.parse(retorno);
+                        }, function (retornoV) {
+                            console.log(retornoV);
+                            var dadosRetornoV = JSON.parse(retornoV);
                             //console.log(dadosRetorno);
-                            if (dadosRetorno == true) {
-                                window.location.replace("funcionarios.php");
+                            if (dadosRetornoV == true) {
+                                $.post(vDestino, {
+                                id_funcionario : vIdFunc,
+                                id_pessoafisica : vIdPessoa,
+                                nome : vNome,
+                                cpf : vCpf,
+                                rg : vRg,
+                                email : vEmail,
+                                telefone : vTelefone,
+                                celular : vCelular,
+                                dtNascimento : vDtNascimento,
+                                genero : vGenero,
+                                logradouro : vLogradouro,
+                                numero : vNumero,
+                                bairro : vBairro,
+                                cidade : vCidade,
+                                estado : vEstado,
+                                observacao : vObservacao,
+                                cargo : vCargo,
+                                login: vLogin,
+                                senha: vSenha
+                                }, function (retorno) {
+                                    //console.log(retorno);
+                                    var dadosRetorno = JSON.parse(retorno);
+                                    //console.log(dadosRetorno);
+                                    if (dadosRetorno == true) {
+                                        window.location.replace("funcionarios.php");
+                                    } else {
+                                        alert("Ocorreu um erro inesperado ao realizar a operação!");
+                                    }
+                                });
+                            } else if(dadosRetornoV == "login"){
+                                $("#divLogin").addClass("has-error");
+                                $("#erroLogin2").show();
+                                alert("Olhar os campos em vermelho");
+                            } else if(dadosRetornoV == "cpf"){
+                                $("#divCpf").addClass("has-error");
+                                $("#erroCpf2").show();
+                                alert("Olhar os campos em vermelho");
+                            } else if(dadosRetornoV == "senha"){
+                                $("#divSenha").addClass("has-error");
+                                $("#erroSenha2").show();
+                                alert("Olhar os campos em vermelho");
                             } else {
                                 alert("Ocorreu um erro inesperado ao realizar a operação!");
                             }
@@ -153,7 +321,7 @@
                         for (var i = 0; i<erros.length; i++) {
                             msg += "\n" + erros[i];
                         }
-                        alert(msg);
+                        alert("Olhar os campos em vermelho");
                     }
                     
                 });
@@ -186,7 +354,17 @@
                         $("#login").val(dados[0].login);
                     });
                 }
+                
+                $("#cpf").mask('000.000.000-00');
+                /*var options = {onKeyPress: function(tel, e, field, options){
+                    var masks = ['(00) 0000-0000', '(00) 00000-0000'];
+                    mask = (tel.length > 14)? masks[1] : masks[0];
+                    $("#telefone").mask(mask, options);
+                }};*/
+                $("#telefone").mask('(00) 0000-0000');
+                $("#celular").mask('(00) 0000-0000');
             });
+            
         </script>
     </head>
     <body>
@@ -214,13 +392,17 @@
 
                         <fieldset>
                             <legend>Acesso ao Sistema</legend>
-                            <div class="form-group">
-                                <label for="name">Login<sup>*</sup></label>
+                            <div id="divLogin" class="form-group">
+                                <label for="login">Login<sup>*</sup></label>
                                 <input class="form-control" type="text" value="" size="20" id="login" ng-model="login" required>
+                                <span id="erroLogin" class="help-block hideContent">Login inválido. Somente letras, números e '_' de tamanho mínimo 3.</span>
+                                <span id="erroLogin2" class="help-block hideContent">Login já existe.</span>
                             </div>
-                            <div class="form-group">
-                                <label for="name">Senha<sup>*</sup></label>
+                            <div id="divSenha" class="form-group">
+                                <label for="senha">Senha<sup>*</sup></label>
                                 <input class="form-control" type="password" value="" size="20" id="senha" ng-model="senha" required>
+                                <span id="erroSenha" class="help-block hideContent">Senha inválida. Somente letras números e os caracteres !, @, #, $, %, ^, &amp;, *, (), _ de tamanho mínimo 6.</span>
+                                <span id="erroSenha2" class="help-block hideContent">Senha já existe.</span>
                             </div>
                         </fieldset>
                         
@@ -229,48 +411,57 @@
                         <fieldset>
                             <legend>Dados Pessoais</legend>
                             <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="name">Nome<sup>*</sup></label>
+                                <div id="divNome" class="form-group col-md-6">
+                                    <label for="nome">Nome<sup>*</sup></label>
                                     <input class="form-control" type="text" id="nome" ng-model="nome"> 
+                                    <span id="erroNome" class="help-block hideContent">Nome inválido. Somente letras e números de tamanho mínimo 3.</span>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div id="divRg" class="form-group col-md-3">
                                     <label for="rg">RG<sup>*</sup></label>
                                     <input class="form-control" type="text" id="rg" ng-model="rg" >
+                                    <span id="erroRg" class="help-block hideContent">RG inválido. Somente os 7 caracteres, sem pontos.</span>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div id="divCpf" class="form-group col-md-3">
                                     <label for="cpf">CPF<sup>*</sup></label>
                                     <input class="form-control" type="text" id="cpf" ng-model="cpf" >
+                                    <span id="erroCpf" class="help-block hideContent">CPF inválido. Somente os 11 números.</span>
+                                    <span id="erroCpf2" class="help-block hideContent">CPF já existe.</span>
                                 </div>
                             </div>
                                 
-                            <div class="form-group">
+                            <div id="divEmail" class="form-group">
                                 <label for="email">E-mail</label>
                                 <input class="form-control" type="email" id="email" ng-model="email" >
+                                <span id="erroEmail" class="help-block hideContent">Email inválido.</span>
                             </div>
                             
                             <div class="row">
-                                <div class="form-group col-md-6">
+                                <div id="divTelefone" class="form-group col-md-6">
                                     <label for="telefone">Telefone<sup>*</sup></label>
                                     <input class="form-control" type="tel" id="telefone" ng-model="telefone" >
+                                    <span id="erroTelefone" class="help-block hideContent">Telefone inválido. Formato (##) ####### ou (##) ########.</span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div id="divCelular" class="form-group col-md-6">
                                     <label for="celular">Celular</label>
                                     <input class="form-control" type="tel" id="celular" ng-model="celular" >
+                                    <span id="erroCelular" class="help-block hideContent">Celular inválido. Formato (##) ####### ou (##) ########.</span>
                                 </div>
                             </div>
                             
                             <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="nascimento">Data de Nascimento<sup>*</sup></label>
+                                <div id="divDtNascimento" class="form-group col-md-6">
+                                    <label for="dtNascimento">Data de Nascimento<sup>*</sup></label>
                                     <input class="form-control" type="date" id="dtNascimento" ng-model="dtNascimento" >
+                                    <span id="erroDtNascimento" class="help-block hideContent">Data de nascimento inválida. Informe uma data.</span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div id="divGenero" class="form-group col-md-6">
                                     <label class="text" for="genero">Gênero<sup>*</sup></label>
                                     <select placeholder="Selecione" class="dropdown form-control" id="genero" ng-model="genero" >
                                         <option value="">Selecione</option>
                                         <option value="M">Masculino</option>
                                         <option value="F">Feminino</option>
                                     </select>
+                                    <span id="erroGenero" class="help-block hideContent">Selecione o Gênero.</span>
                                 </div>
                             </div>    
                         </fieldset>
@@ -280,38 +471,44 @@
                         <fieldset>
                             <legend>Endereço</legend>
                             <div class="row">
-                                <div class="form-group col-md-9">
+                                <div id="divLogradouro" class="form-group col-md-9">
                                     <label for="logradouro">Logradouro<sup>*</sup></label>
                                     <input class="form-control" type="text" id="logradouro" ng-model="logradouro" > 
+                                    <span id="erroLogradouro" class="help-block hideContent">Logradouro inválido. Somente letras e números de tamanho mínimo 3.</span>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div id="divNumero" class="form-group col-md-3">
                                     <label for="num">Numero<sup>*</sup></label>
                                     <input class="form-control" type="number" id="numero" ng-model="numero" >
+                                    <span id="erroNumero" class="help-block hideContent">Número inválido.</span>
                                 </div>
                             </div>    
                             
                             <div class="row">
-                                <div class="form-group col-md-6">
+                                <div id="divBairro" class="form-group col-md-6">
                                     <label for="bairro">Bairro<sup>*</sup></label>
                                     <input class="form-control" type="text" id="bairro" ng-model="bairro" > 
+                                    <span id="erroBairro" class="help-block hideContent">Bairro inválido. Somente letras e números de tamanho mínimo 3.</span>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="city">Cidade<sup>*</sup></label>
+                                <div id="divCidade" class="form-group col-md-4">
+                                    <label for="cidade">Cidade<sup>*</sup></label>
                                     <input class="form-control" type="text" id="cidade" ng-model="cidade" >
+                                    <span id="erroCidade" class="help-block hideContent">Cidade inválida. Somente letras e números de tamanho mínimo 3.</span>
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label for="state">Estado<sup>*</sup></label>
+                                <div id="divEstado" class="form-group col-md-2">
+                                    <label for="estado">Estado<sup>*</sup></label>
                                     <input class="form-control" type="text" id="estado" ng-model="estado" >
+                                    <span id="erroEstado" class="help-block hideContent">Estado inválido. Somente letras e números de tamanho mínimo 2.</span>
                                 </div>
                             </div>    
-                            <div class="form-group">
-                                <label for="obs">Observação</label> 
+                            <div id="divObservacao" class="form-group">
+                                <label for="observacao">Observação</label> 
                                 <input class="form-control" type="text" id="observacao" ng-model="observacao" >
+                                <span id="erroObservacao" class="help-block hideContent">Observação inválida. Somente letras e números de tamanho mínimo 3.</span>
                             </div>
                         </fieldset>
 
                         <br>
-                        <div class="form-group">
+                        <div id="divCargo" class="form-group">
                             <label for="cargo">Perfil<sup>*</sup></label>
                             <select class="dropdown form-control" for="cargo" id="cargo" ng-model="cargo" >
                                 <option value="">Selecione</option>
@@ -319,6 +516,7 @@
                                 <option value="Secretário">Secretário</option>
                                 <option value="Professor">Professor</option>
                             </select>
+                            <span id="erroCargo" class="help-block hideContent">Selecione o Cargo.</span>
                         </div>
 
                         <br>

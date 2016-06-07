@@ -1,5 +1,5 @@
 <?php
-include 'conexaodb.php';
+    include 'conexaodb.php';
 
     $id_funcionario = $_REQUEST['id_funcionario'];
 	$id_pessoafisica = $_REQUEST['id_pessoafisica'];
@@ -21,6 +21,8 @@ include 'conexaodb.php';
 	$login = $_REQUEST['login'];
 	$senha = $_REQUEST['senha'];
 
+
+
     $senhaSQL = "";
 
     if($senha != ""){
@@ -28,13 +30,14 @@ include 'conexaodb.php';
         $senhaSQL = ", senha = '$senha'";
     }
 
-$sql = "UPDATE funcionario SET cargo = '$cargo' WHERE id_Funcionario = '$id_funcionario';
+    $sql = "UPDATE funcionario SET cargo = '$cargo' WHERE id_Funcionario = '$id_funcionario';
 
-        UPDATE pessoafisica SET nome = '$nome', cpf = '$cpf', rg = '$rg', email = '$email', telefone = '$telefone', celular = '$celular', dtNascimento = '$dtNascimento', genero = '$genero', logradouro = '$logradouro', numero = '$numero', bairro = '$bairro', cidade = '$cidade', estado = '$estado', observacao = '$observacao' WHERE id_pessoafisica = '$id_pessoafisica';
-        
-        UPDATE usuario SET  login = '$login' {$senhaSQL}, nivel = '$cargo' WHERE id_pessoafisica = '$id_pessoafisica';";
+            UPDATE pessoafisica SET nome = '$nome', cpf = '$cpf', rg = '$rg', email = '$email', telefone = '$telefone', celular = '$celular', dtNascimento = '$dtNascimento', genero = '$genero', logradouro = '$logradouro', numero = '$numero', bairro = '$bairro', cidade = '$cidade', estado = '$estado', observacao = '$observacao' WHERE id_pessoafisica = '$id_pessoafisica';
 
-$result = $conn->multi_query($sql) or die($conn->error.__LINE__);
-//echo $result;
-echo $json_response = json_encode($result);
+            UPDATE usuario SET  login = '$login' {$senhaSQL}, nivel = '$cargo' WHERE id_PessoaFisica = '$id_pessoafisica';";
+
+    $result = $conn->multi_query($sql) or die($conn->error.__LINE__);
+    //echo $result;
+    mysqli_close($conn);
+    echo $json_response = json_encode($result);
 ?>

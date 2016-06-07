@@ -1,5 +1,6 @@
 
 <!--<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>-->
+<!--<base href="http://10.13.4.73/MinhaCreche/">-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <!--<script src="http://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>-->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>

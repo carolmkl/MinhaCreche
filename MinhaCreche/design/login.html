@@ -20,9 +20,13 @@
                         $.post("../code/novaSenha.php", {
                             login: vLogin
                         }, function (retorno) {
+                            console.log(retorno);
                             var dado = JSON.parse(retorno);
+                            console.log(dado);
                             if(dado == true){
                                 alert("Um e-mail foi enviado com a sua nova senha");
+                            } else {
+                                alert("Ocorreu um erro com o envio do e-mail.\nTem certeza que você possui um email cadastrado,\n ou fale com o administrador do sistema para uma nova senha");
                             }
                         });
                     }

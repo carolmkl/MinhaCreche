@@ -53,6 +53,20 @@
                 arraySqlDate = sqlDate.split("-");
                 return arraySqlDate[2] + "/" + arraySqlDate[1] + "/" + arraySqlDate[0];
             }
+			
+			function informaNivel(nivel){
+				switch(nivel){
+					case '1':	
+						return "IMPONTANTE";
+						break;
+					case '2':	
+						return "MEDIO";
+						break;
+					case '3':	
+						return "NORMAL";
+						break;
+				} 
+			}
             
             function loadDados(dados,local){
                 var vId_pessoaFisica = Number($("#idPessoa").val())
@@ -66,6 +80,7 @@
                     $(local).append(
                         '<tr ' + classe + '><td>' + dados[i].nome + '</td>' + 
                         '<td>' + convetSqlDateIntoNormalDateString(dados[i].dataEntrega) + '</td>' + 
+						'<td>' + informaNivel(dados[i].nivel) + '</td>' + 
                         '<td><button class="btn btn-sm btn-danger" onclick="deleteViewAviso(' + dados[i].id_Aviso + ',' + vId_pessoaFisica +')">Excluir</button>' + 
                         '<button class="btn btn-sm btn-info" id=' + dados[i].id_Aviso + ' onclick="callform(this.id,true)">Ver</button></td></tr>');
 			         }
@@ -83,14 +98,15 @@
             }
             
             function loadPage() {
-                $("#avisoImportante").empty();
-                $("#avisoMedio").empty();
-                $("#avisoNormal").empty();
+//                $("#avisoImportante").empty();
+//                $("#avisoMedio").empty();
+//                $("#avisoNormal").empty();
+				$("#avisoRecebidos").empty();
                 $("#avisoNFoi").empty();
                 var vId_pessoaFisica = Number($("#idPessoa").val());
                 $.post("../code/avisoCRUD.php", {operacao : 1, nivelAviso: 1, id_pessoaFisica: vId_pessoaFisica}, function(retorno){
                     var dados = JSON.parse(retorno);
-                    loadDados(dados,"#avisoImportante");
+                    loadDados(dados,"#avisoRecebidos");
                 });
                 $.post("../code/avisoCRUD.php", {operacao : 1, nivelAviso: 2, id_pessoaFisica: vId_pessoaFisica}, function(retorno){
                     var dados = JSON.parse(retorno);
@@ -123,7 +139,7 @@
                 
                 <input type="hidden" id="idPessoa" value="<?php echo $idpessoa; ?>">
                 <div class="spacee">
-                    <fieldset>
+                    <!--<fieldset>
                         <legend>Importante</legend>
                         <table>
                             <tr>
@@ -164,12 +180,26 @@
                             <tbody id="avisoNormal">
                             </tbody>
                         </table>
+                    </fieldset> -->
+					
+					<fieldset>
+                        <legend>Recebidos</legend>
+                        <table>
+                            <tr>
+                                <th>Remetente</th>
+                                <th>Data</th>
+								<th>Importancia</th>
+                                <th></th>
+                            </tr>
+                            <tbody id="avisoRecebidos">
+                            </tbody>
+                        </table>
                     </fieldset>
                     
                     <br>
                     
                     <fieldset>
-                        <legend>Enviados Não Entregues</legend>
+                        <legend>Agendados para Entrega</legend>
                         <table>
                             <tr>
                                 <th>Sobre</th>

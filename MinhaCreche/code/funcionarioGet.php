@@ -17,6 +17,7 @@ if(isset($_REQUEST['id_funcionario'])){
 	}
 
 	# JSON-encode the response
+    mysqli_close($conn);
 	echo $json_response = json_encode($arr);
 }
 ?>

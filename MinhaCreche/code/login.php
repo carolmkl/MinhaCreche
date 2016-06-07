@@ -35,6 +35,8 @@ if(isset($_POST['login']) && isset($_POST['senha']) ){
             $_SESSION['mc_responsavel_id']=$row['id_responsavel'];
             echo 1;
         } else {
+            //echo $senha;
+            //echo $row['senha'];
             echo 0;
         }
     }

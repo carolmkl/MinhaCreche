@@ -20,7 +20,7 @@ $sql = "update minhacreche.creche SET nome = '$nome', cnpj = '$cnpj', email = '$
 print $sql;
 
 $result = $conn->query($sql) or die($conn->error.__LINE__);
-
+mysqli_close($conn);
 echo $json_response = json_encode($result);
 
 ?>

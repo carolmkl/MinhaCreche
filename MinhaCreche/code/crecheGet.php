@@ -9,5 +9,6 @@ if($result->num_rows > 0) {
 }
 
 # JSON-encode the response
+mysqli_close($conn);
 echo $json_response = json_encode($arr);
 ?>

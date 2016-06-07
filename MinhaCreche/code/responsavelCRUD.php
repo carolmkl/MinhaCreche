@@ -57,6 +57,8 @@
         $profissao = strtoupper($_REQUEST['profissao']);
         $login = $_REQUEST['login'];
         $senha = $_REQUEST['senha'];
+        
+        
 
         $senha = password_hash($senha, PASSWORD_BCRYPT);
 
@@ -72,6 +74,8 @@
         //echo $result;
         mysqli_close($GLOBALS['conn']);
         echo $json_response = json_encode($result);
+                    
+                
     }
 
     function responsavelUpdate(){
@@ -96,6 +100,7 @@
         $login = $_REQUEST['login'];
         $senha = $_REQUEST['senha'];
         
+        
         $senhaSQL = "";
 
         if($senha != ""){
@@ -105,14 +110,16 @@
 
         $sql = "UPDATE  pessoafisica SET  nome = '$nome', cpf = '$cpf', rg = '$rg', email = '$email', telefone = '$telefone', celular = '$celular', dtNascimento = '$dtNascimento', genero = '$genero', logradouro = '$logradouro', numero = '$numero', bairro = '$bairro', cidade = '$cidade', estado = '$estado', observacao = '$observacao' WHERE id_pessoafisica = '$id_pessoafisica';
 
-        UPDATE usuario SET login = '$login' {$senhaSQL} WHERE id_pessoafisica = '$id_pessoafisica';
+        UPDATE usuario SET login = '$login' {$senhaSQL} WHERE id_PessoaFisica = '$id_pessoafisica';
 
         UPDATE responsavel SET profissao = '$profissao', foneComercial = '$telefoneCom' WHERE id_responsavel = '$id_responsavel';";
         //print $sql;
         $result = $GLOBALS['conn']->multi_query($sql) or die($GLOBALS['conn']->error.__LINE__);
-        
+
         mysqli_close($GLOBALS['conn']);
         echo $json_response = json_encode($result);
+                    
+                
     }
 
     function responsavelDelete(){
