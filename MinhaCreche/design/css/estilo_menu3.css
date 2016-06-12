@@ -115,6 +115,6 @@ body{
 @media (max-height: 500px){
 	.box a{
 		border-bottom: 1px solid #F3FFBD;
-		padding: 0.1em;
+		padding: 0.13em;
 	}
 }

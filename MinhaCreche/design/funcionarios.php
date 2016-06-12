@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="css/estilo_conteudo.css" type="text/css">
         <link rel="stylesheet" href="css/estilo_imagem.css" type="text/css">
         <link rel="stylesheet" href="css/modal.css" type="text/css">
+		<?php include 'import.php' ?>
         <script src="js/callPage.js"></script>
         
         <script type="text/javascript">
@@ -21,7 +22,6 @@
         <div class="container-fluid">
             <?php include '../code/valida_user.php' ?>
             <?php include 'menu_principal.php' ?>
-            <?php include 'import.php' ?>
 
             <div class="conteiner">
                 <h1 class="space_title">Funcionários <a href="funcionario_form.php"><img class="icon" src="img/plus-circle-outline.png" alt="Adicionar Funcionário"></a></h1>

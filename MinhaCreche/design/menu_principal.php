@@ -1,9 +1,14 @@
 <script type="text/javascript">
-	function hideShowMenu() {
-		$("#botaoMenu").click(function(e) {
+//	function hideShowMenu() {
+//		$("#botaoMenu").click(function(e) {
+//			$("#menu").toggleClass("open");
+//		});
+//	}
+	$("document").ready(function() {
+		$("#botaoM").click(function() {
 			$("#menu").toggleClass("open");
 		});
-	}
+	});
 </script>
 <div id="header"> 
     <div class="text_header"> 
@@ -13,7 +18,7 @@
     </div>
 </div>
 <div id="menu">
-	<button id="botaoMenu" class="btn btn-info botaoMenu" type="button" onclick="hideShowMenu()">Menu</button>
+	<button id="botaoM" class="btn btn-info botaoMenu" type="button">Menu</button>
     <a href="home.php"><img class="img-responsive img_center" src="img/logo2_0_100.png" alt="Minha Creche"></a>
           <ul class="box">
               <li><a href="creche.php">Creche</a></li>
