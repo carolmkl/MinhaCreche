@@ -10,3 +10,4 @@
 <script src="js/angular-ui-router.js"></script>
 <script src="js/app.js"></script>
 <script src="js/jquery.mask.min.js"></script>
+<script src='https://www.google.com/jsapi'></script>

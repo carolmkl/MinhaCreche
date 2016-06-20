@@ -108,14 +108,6 @@
                     var dados = JSON.parse(retorno);
                     loadDados(dados,"#avisoRecebidos");
                 });
-                $.post("../code/avisoCRUD.php", {operacao : 1, nivelAviso: 2, id_pessoaFisica: vId_pessoaFisica}, function(retorno){
-                    var dados = JSON.parse(retorno);
-                    loadDados(dados,"#avisoMedio");
-                });
-                $.post("../code/avisoCRUD.php", {operacao : 1, nivelAviso: 3, id_pessoaFisica: vId_pessoaFisica}, function(retorno){
-                    var dados = JSON.parse(retorno);
-                    loadDados(dados,"#avisoNormal");
-                });
                 $.post("../code/avisoCRUD.php", {operacao : 1, nivelAviso: 4, id_pessoaFisica: vId_pessoaFisica}, function(retorno){
                     var dados = JSON.parse(retorno);
                     loadDadosNaoEnviado(dados,"#avisoNFoi");
@@ -135,7 +127,13 @@
             ?>
 
             <div class="conteiner">
-                <h1 class="space_title">Avisos <a href="avisos_form.php"><img class="icon" src="img/plus-circle-outline.png" alt="Adicionar Aviso"></a><img class="icon" src="img/ic_print_black_24dp_2x.png"></h1>
+                <h1 class="space_title">Avisos <a href="avisos_form.php"><img class="icon" src="img/plus-circle-outline.png" alt="Adicionar Aviso"></a>
+					<?php
+						if($_SESSION['mc_user_nivel'] != "Responsavel"){
+							echo "<a href='avisos_relatorios.php'><img class='icon' src='img/ic_print_black_24dp_2x.png'></a>";
+						}
+					?>
+				</h1>
                 
                 <input type="hidden" id="idPessoa" value="<?php echo $idpessoa; ?>">
                 <div class="spacee">

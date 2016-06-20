@@ -218,6 +218,186 @@
         
     }
 
+	function getDadosRelatorioCrianca(){		
+		$dataInicio = $_REQUEST['inicio'];
+		$dataFim = $_REQUEST['fim'];
+		
+		$scriptDataInicio = "";
+		$scriptDataFim = "";
+		
+		if($dataInicio != ""){
+			$scriptDataInicio = " aviso.dataEntrega >= '{$dataInicio}' ";
+		}
+		if($dataFim != ""){
+			$scriptDataInicio = " aviso.dataEntrega <= '{$dataFim}' ";
+		}
+		
+		$sql = "SELECT crianca.nome, count(aviso.id_crianca) AS `numeroAviso` FROM `aviso` INNER JOIN crianca ON crianca.id_crianca = aviso.id_crianca ";
+		
+		if($scriptDataInicio != "" || $scriptDataFim != ""){
+			$sql .= "WHERE";
+			if($scriptDataInicio != ""){
+				$sql .= $scriptDataInicio;
+			}
+			if($scriptDataInicio != "" && $scriptDataFim != ""){
+				$sql .= "AND";
+			}
+			if($scriptDataFim != ""){
+				$sql .= $scriptDataFim;
+			}
+		}
+		
+		$sql .= " GROUP BY aviso.id_crianca;";
+		
+		$result = $GLOBALS['conn']->query($sql) or die($GLOBALS['conn']->error.__LINE__);
+		
+		$return = array(
+			'erro' => TRUE,
+			'content' => NULL
+		);
+		
+        $retorno = '';
+        if($result->num_rows > 0){
+			
+			$return['erro'] = FALSE;
+			
+            while($row = $result->fetch_assoc()){
+                if($retorno != ''){
+					$retorno .= ',';
+				}
+				$retorno .= '{"c":[{"v":"' . $row['nome'] . '"}, {"v":"' . $row['numeroAviso'] . '"}]}';
+            }
+			
+			$retorno = '{"cols":[{"label":"Criança", "type":"string"}, {"label":"Numero de Avisos", "type":"number"}], "rows":[' . $retorno . ']}';
+			
+			$return['content'] = $retorno;
+        } else {
+			$return['content'] = "Sem dados";
+		}
+        mysqli_close($GLOBALS['conn']);
+		echo json_encode($return);
+	}
+
+	function getDadosRelatorioPessoaFisica(){		
+		$dataInicio = $_REQUEST['inicio'];
+		$dataFim = $_REQUEST['fim'];
+		
+		$scriptDataInicio = "";
+		$scriptDataFim = "";
+		
+		if($dataInicio != ""){
+			$scriptDataInicio = " aviso.dataEntrega >= '{$dataInicio}' ";
+		}
+		if($dataFim != ""){
+			$scriptDataInicio = " aviso.dataEntrega <= '{$dataFim}' ";
+		}
+		
+		$sql = "SELECT pessoafisica.nome AS `nomePessoa`, crianca.nome AS `nomeCrianca`, count(aviso.id_crianca) AS `numeroAviso` FROM `aviso` INNER JOIN crianca ON crianca.id_crianca = aviso.id_crianca INNER JOIN pessoaFisica ON pessoafisica.id_pessoaFisica = aviso.id_pessoaFisica ";
+		
+		if($scriptDataInicio != "" || $scriptDataFim != ""){
+			$sql .= "WHERE";
+			if($scriptDataInicio != ""){
+				$sql .= $scriptDataInicio;
+			}
+			if($scriptDataInicio != "" && $scriptDataFim != ""){
+				$sql .= "AND";
+			}
+			if($scriptDataFim != ""){
+				$sql .= $scriptDataFim;
+			}
+		}
+		
+		$sql .= " GROUP BY aviso.id_pessoaFisica, aviso.id_crianca;";
+		
+		$result = $GLOBALS['conn']->query($sql) or die($GLOBALS['conn']->error.__LINE__);
+		
+		$return = array(
+			'erro' => TRUE,
+			'content' => NULL
+		);
+		
+        $retorno = '';
+        if($result->num_rows > 0){
+			
+			$return['erro'] = FALSE;
+			
+            while($row = $result->fetch_assoc()){
+                if($retorno != ''){
+					$retorno .= ',';
+				}
+				$retorno .= '{"c":[{"v":"' . $row['nomePessoa'] . '"}, {"v":"' . $row['nomeCrianca'] . '"}, {"v":"' . $row['numeroAviso'] . '"}]}';
+            }
+			
+			$retorno = '{"cols":[{"label":"Pessoa", "type":"string"}, {"label":"Criança", "type":"string"}, {"label":"Numero de Avisos", "type":"number"}], "rows":[' . $retorno . ']}';
+			
+			$return['content'] = $retorno;
+        } else {
+			$return['content'] = "Sem dados";
+		}
+        mysqli_close($GLOBALS['conn']);
+		echo json_encode($return);
+	}
+
+	function getDadosRelatorioData(){		
+		$dataInicio = $_REQUEST['inicio'];
+		$dataFim = $_REQUEST['fim'];
+		
+		$scriptDataInicio = "";
+		$scriptDataFim = "";
+		
+		if($dataInicio != ""){
+			$scriptDataInicio = " aviso.dataEntrega >= '{$dataInicio}' ";
+		}
+		if($dataFim != ""){
+			$scriptDataInicio = " aviso.dataEntrega <= '{$dataFim}' ";
+		}
+		
+		$sql = "SELECT aviso.dataEntrega, crianca.nome, count(aviso.id_crianca) AS `numeroAviso` FROM `aviso` INNER JOIN crianca ON crianca.id_crianca = aviso.id_crianca ";
+		
+		if($scriptDataInicio != "" || $scriptDataFim != ""){
+			$sql .= "WHERE";
+			if($scriptDataInicio != ""){
+				$sql .= $scriptDataInicio;
+			}
+			if($scriptDataInicio != "" && $scriptDataFim != ""){
+				$sql .= "AND";
+			}
+			if($scriptDataFim != ""){
+				$sql .= $scriptDataFim;
+			}
+		}
+		
+		$sql .= " GROUP BY aviso.dataEntrega, aviso.id_crianca;";
+		
+		$result = $GLOBALS['conn']->query($sql) or die($GLOBALS['conn']->error.__LINE__);
+		
+		$return = array(
+			'erro' => TRUE,
+			'content' => NULL
+		);
+		
+        $retorno = '';
+        if($result->num_rows > 0){
+			
+			$return['erro'] = FALSE;
+			
+            while($row = $result->fetch_assoc()){
+                if($retorno != ''){
+					$retorno .= ',';
+				}
+				$retorno .= '{"c":[{"v":"' . $row['dataEntrega'] . '"}, {"v":"' . $row['nome'] . '"}, {"v":"' . $row['numeroAviso'] . '"}]}';
+            }
+			
+			$retorno = '{"cols":[{"label":"Data", "type":"string"}, {"label":"Criança", "type":"string"}, {"label":"Numero de Avisos", "type":"number"}], "rows":[' . $retorno . ']}';
+			
+			$return['content'] = $retorno;
+        } else {
+			$return['content'] = "Sem dados";
+		}
+        mysqli_close($GLOBALS['conn']);
+		echo json_encode($return);
+	}
+
     $operacao = $_REQUEST['operacao'];
 
 
@@ -246,30 +426,40 @@
     const removerViewAviso = 10;
     const insertDataLeitura = 11;
     const getDestinatario = 12;
+	const getRelatorioCrianca = 13;
+	const getRelatorioPessoa = 14;	
+	const getRelatorioData = 15;
 
-    if($operacao == listar){
+
+    if($operacao == listar) {
         avisoList();
-    } elseif ($operacao == get){
+    } elseif ($operacao == get) {
         avisoGet();
-    } elseif ($operacao == insert){
+    } elseif ($operacao == insert) {
         avisoInsert();
-    } elseif ($operacao == update){
+    } elseif ($operacao == update) {
         avisoUpdate();
-    } elseif ($operacao == removerAviso){
+    } elseif ($operacao == removerAviso) {
         avisoDelete();
-    } elseif ($operacao == getResponsaveisDaCrianca){
+    } elseif ($operacao == getResponsaveisDaCrianca) {
         criancaResponsavelGet();
-    } elseif ($operacao == getCriancasDoResponsavel){
+    } elseif ($operacao == getCriancasDoResponsavel) {
         nivelResponsavelCriancaGet();
-    } elseif ($operacao == getCriancasDaCreche){
+    } elseif ($operacao == getCriancasDaCreche) {
         nivelFuncionarioCriancaGet();
-    } elseif ($operacao == getFuncionarios){
+    } elseif ($operacao == getFuncionarios) {
         criancaFuncionarioGet();
-    } elseif ($operacao == removerViewAviso){
+    } elseif ($operacao == removerViewAviso) {
         avisoDeleteView();
-    } elseif ($operacao == insertDataLeitura){
+    } elseif ($operacao == insertDataLeitura) {
         datarAviso();
-    } elseif ($operacao == getDestinatario){
+    } elseif ($operacao == getDestinatario) {
         getDestinatarios();
-    }
+    } elseif ($operacao == getRelatorioCrianca) {
+		getDadosRelatorioCrianca();
+	} elseif ($operacao == getRelatorioPessoa) {
+		getDadosRelatorioPessoaFisica();
+	} elseif ($operacao == getRelatorioData) {
+		getDadosRelatorioData();
+	}
 ?>
