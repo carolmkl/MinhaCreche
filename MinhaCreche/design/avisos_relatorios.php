@@ -18,15 +18,12 @@
 			google.load("visualization", "1", {packages:["corechart"]});
             
 			function drawChart(dadosRelatorio, visual){
-//				console.log(dadosRelatorio);
 				var dados = new google.visualization.DataTable(dadosRelatorio);
 				var div = document.getElementById('dadosRelatorio');
 				var chart;
 				if(visual === "tabela"){
 					chart = new google.visualization.Table(div);
-				} /*else if(visual === "pizza"){
-					chart = new google.visualization.PieChart(div);
-				}*/ else {
+				} else {
 					chart = new google.visualization.ColumnChart(div);
 				}
 				var options = {'width':'100%', 'height' : '500px', 'isStacked': 'true'};
@@ -58,9 +55,12 @@
 						var dadosRelatorio = JSON.parse(retorno);
 						
 						if(!dadosRelatorio.erro){
+							$("#semDados").hide();
+							$("#dadosRelatorio").show();
 							google.setOnLoadCallback(drawChart(dadosRelatorio.content, vVisual));
 						} else {
-							$("#dadosRelatorio").html('<p>Sem dados para serem exibidos</p>');
+							$("#semDados").show();
+							$("#dadosRelatorio").hide();
 						}
 						
 					});
@@ -118,8 +118,10 @@
 						<input class="btn btn-success" id="gerar" type="button" value="Gerar" />
 						<input class="btn btn-danger" type="button" value="Cancelar" onclick="goBack('avisos.php')">
 					</p>
-					
-					<div id="dadosRelatorio">
+					<div>
+						<p id="semDados" class="hideContent">Sem dados para serem exibidos</p>
+					</div>
+					<div id="dadosRelatorio" class="fill">
 					</div>
                 </div>
             </div>

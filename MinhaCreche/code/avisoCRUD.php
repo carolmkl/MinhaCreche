@@ -424,8 +424,6 @@
 		
 		$sql .= " GROUP BY aviso.dataEntrega, aviso.id_crianca;";
 		
-		echo $sql;
-		
 		$result = $GLOBALS['conn']->query($sql) or die($GLOBALS['conn']->error.__LINE__);
 		
 		$return = array(
