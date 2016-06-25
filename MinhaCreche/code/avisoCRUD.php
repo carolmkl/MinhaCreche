@@ -281,6 +281,7 @@
 	function getDadosRelatorioPessoaFisica(){		
 		$dataInicio = $_REQUEST['inicio'];
 		$dataFim = $_REQUEST['fim'];
+		$tipo = $_REQUEST['tipo'];
 		
 		$scriptDataInicio = "";
 		$scriptDataFim = "";
@@ -291,9 +292,11 @@
 		if($dataFim != ""){
 			$scriptDataInicio = " aviso.dataEntrega <= '{$dataFim}' ";
 		}
+
+		$sql;
 		
-		$sql = "SELECT pessoafisica.nome AS `nomePessoa`, crianca.nome AS `nomeCrianca`, count(aviso.id_crianca) AS `numeroAviso` FROM `aviso` INNER JOIN crianca ON crianca.id_crianca = aviso.id_crianca INNER JOIN pessoaFisica ON pessoafisica.id_pessoaFisica = aviso.id_pessoaFisica ";
-		
+		$sql = "SELECT pessoafisica.nome AS `nomePessoa`, pessoafisica.id_pessoaFisica AS `idPessoa`, crianca.nome AS `nomeCrianca`, crianca.id_crianca AS `idCrianca`, count(aviso.id_crianca) AS `numeroAviso` FROM `aviso` INNER JOIN crianca ON crianca.id_crianca = aviso.id_crianca 	INNER JOIN pessoaFisica ON pessoafisica.id_pessoaFisica = aviso.id_pessoaFisica ";
+
 		if($scriptDataInicio != "" || $scriptDataFim != ""){
 			$sql .= "WHERE";
 			if($scriptDataInicio != ""){
@@ -306,7 +309,7 @@
 				$sql .= $scriptDataFim;
 			}
 		}
-		
+
 		$sql .= " GROUP BY aviso.id_pessoaFisica, aviso.id_crianca;";
 		
 		$result = $GLOBALS['conn']->query($sql) or die($GLOBALS['conn']->error.__LINE__);
@@ -320,16 +323,67 @@
         if($result->num_rows > 0){
 			
 			$return['erro'] = FALSE;
-			
-            while($row = $result->fetch_assoc()){
+            if($tipo === "tabela"){
+				while($row = $result->fetch_assoc()){
                 if($retorno != ''){
 					$retorno .= ',';
 				}
-				$retorno .= '{"c":[{"v":"' . $row['nomePessoa'] . '"}, {"v":"' . $row['nomeCrianca'] . '"}, {"v":"' . $row['numeroAviso'] . '"}]}';
-            }
-			
-			$retorno = '{"cols":[{"label":"Pessoa", "type":"string"}, {"label":"Criança", "type":"string"}, {"label":"Numero de Avisos", "type":"number"}], "rows":[' . $retorno . ']}';
-			
+					$retorno .= '{"c":[{"v":"' . $row['nomePessoa'] . '"}, {"v":"' . $row['nomeCrianca'] . '"}, {"v":"' . $row['numeroAviso'] . '"}]}';
+				}
+
+				$retorno = '{"cols":[{"label":"Pessoa", "type":"string"}, {"label":"Criança", "type":"string"}, {"label":"Numero de Avisos", "type":"number"}], "rows":[' . $retorno . ']}';
+			} else {
+				$arraydados = array();
+				$arrayCrianca = array();
+				while($row = $result->fetch_assoc()){
+					$arraydados[$row['idPessoa']]['nome'] = $row['nomePessoa'];
+					$arraydados[$row['idPessoa']][$row['idCrianca']] = $row['numeroAviso'];
+				}
+				
+				$sql = "SELECT crianca.nome, crianca.id_crianca AS `idCrianca` FROM crianca;";
+				$result = $GLOBALS['conn']->query($sql) or die($GLOBALS['conn']->error.__LINE__);
+				if($result->num_rows > 0){
+					while($row = $result->fetch_assoc()){
+						$arrayCrianca[$row['idCrianca']] = array(
+							'id' => $row['idCrianca'],
+							'nome' => $row['nome']
+						);
+					}
+				}
+				
+				foreach($arraydados as $dado){
+					if($retorno != ''){
+						$retorno .= ',';
+					}
+					$retorno .= '{"c":[{"v":"' . $dado['nome'] . '"}, ';
+					$numeros = '';
+					foreach($arrayCrianca as $crianca){
+						if($numeros != ''){
+							$numeros .= ',';
+						}
+						if(isset($dado[$crianca['id']])){
+							$numeros .= '{"v":"' . $dado[$crianca['id']] . '"}';
+						} else {
+							$numeros .= '{"v":"0"}';
+						}
+					}
+					unset($crianca);
+					$retorno .= $numeros . ']}';
+				}
+				unset($dado);	
+				
+				$colunas = '';
+				foreach($arrayCrianca as $crianca){
+					if($colunas != ''){
+						$colunas .= ',';
+					} else {
+						$colunas .= '{"label":"Pessoa", "type":"string"},';
+					}
+					$colunas .= '{"label":"' . $crianca['nome'] . '", "type":"number"}';
+				}
+				unset($crianca);
+				$retorno = '{"cols":[' . $colunas . '], "rows":[' . $retorno . ']}';
+			}
 			$return['content'] = $retorno;
         } else {
 			$return['content'] = "Sem dados";
@@ -341,6 +395,7 @@
 	function getDadosRelatorioData(){		
 		$dataInicio = $_REQUEST['inicio'];
 		$dataFim = $_REQUEST['fim'];
+		$tipo = $_REQUEST['tipo'];
 		
 		$scriptDataInicio = "";
 		$scriptDataFim = "";
@@ -352,7 +407,7 @@
 			$scriptDataInicio = " aviso.dataEntrega <= '{$dataFim}' ";
 		}
 		
-		$sql = "SELECT aviso.dataEntrega, crianca.nome, count(aviso.id_crianca) AS `numeroAviso` FROM `aviso` INNER JOIN crianca ON crianca.id_crianca = aviso.id_crianca ";
+		$sql = "SELECT DATE_FORMAT(aviso.dataEntrega, '%d/%m/%y') AS `dataEntrega`, crianca.nome, crianca.id_crianca AS `idCrianca`, count(aviso.id_crianca) AS `numeroAviso` FROM `aviso` INNER JOIN crianca ON crianca.id_crianca = aviso.id_crianca ";
 		
 		if($scriptDataInicio != "" || $scriptDataFim != ""){
 			$sql .= "WHERE";
@@ -369,6 +424,8 @@
 		
 		$sql .= " GROUP BY aviso.dataEntrega, aviso.id_crianca;";
 		
+		echo $sql;
+		
 		$result = $GLOBALS['conn']->query($sql) or die($GLOBALS['conn']->error.__LINE__);
 		
 		$return = array(
@@ -381,14 +438,67 @@
 			
 			$return['erro'] = FALSE;
 			
-            while($row = $result->fetch_assoc()){
-                if($retorno != ''){
-					$retorno .= ',';
+            if($tipo === "tabela"){
+				while($row = $result->fetch_assoc()){
+					if($retorno != ''){
+						$retorno .= ',';
+					}
+					$retorno .= '{"c":[{"v":"' . $row['dataEntrega'] . '"}, {"v":"' . $row['nome'] . '"}, {"v":"' . $row['numeroAviso'] . '"}]}';
 				}
-				$retorno .= '{"c":[{"v":"' . $row['dataEntrega'] . '"}, {"v":"' . $row['nome'] . '"}, {"v":"' . $row['numeroAviso'] . '"}]}';
-            }
-			
-			$retorno = '{"cols":[{"label":"Data", "type":"string"}, {"label":"Criança", "type":"string"}, {"label":"Numero de Avisos", "type":"number"}], "rows":[' . $retorno . ']}';
+
+				$retorno = '{"cols":[{"label":"Data", "type":"string"}, {"label":"Criança", "type":"string"}, {"label":"Numero de Avisos", "type":"number"}], "rows":[' . $retorno . ']}';
+			} else {
+				$arraydados = array();
+				$arrayCrianca = array();
+				while($row = $result->fetch_assoc()){
+					$arraydados[$row['dataEntrega']]['data'] = $row['dataEntrega'];
+					$arraydados[$row['dataEntrega']][$row['idCrianca']] = $row['numeroAviso'];
+				}
+				
+				$sql = "SELECT crianca.nome, crianca.id_crianca AS `idCrianca` FROM crianca;";
+				$result = $GLOBALS['conn']->query($sql) or die($GLOBALS['conn']->error.__LINE__);
+				if($result->num_rows > 0){
+					while($row = $result->fetch_assoc()){
+						$arrayCrianca[$row['idCrianca']] = array(
+							'id' => $row['idCrianca'],
+							'nome' => $row['nome']
+						);
+					}
+				}
+				
+				foreach($arraydados as $dado){
+					if($retorno != ''){
+						$retorno .= ',';
+					}
+					$retorno .= '{"c":[{"v":"' . $dado['data'] . '"}, ';
+					$numeros = '';
+					foreach($arrayCrianca as $crianca){
+						if($numeros != ''){
+							$numeros .= ',';
+						}
+						if(isset($dado[$crianca['id']])){
+							$numeros .= '{"v":"' . $dado[$crianca['id']] . '"}';
+						} else {
+							$numeros .= '{"v":"0"}';
+						}
+					}
+					unset($crianca);
+					$retorno .= $numeros . ']}';
+				}
+				unset($dado);	
+				
+				$colunas = '';
+				foreach($arrayCrianca as $crianca){
+					if($colunas != ''){
+						$colunas .= ',';
+					} else {
+						$colunas .= '{"label":"Data", "type":"string"},';
+					}
+					$colunas .= '{"label":"' . $crianca['nome'] . '", "type":"number"}';
+				}
+				unset($crianca);
+				$retorno = '{"cols":[' . $colunas . '], "rows":[' . $retorno . ']}';
+			}
 			
 			$return['content'] = $retorno;
         } else {

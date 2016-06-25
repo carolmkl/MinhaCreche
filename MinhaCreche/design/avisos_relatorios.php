@@ -14,21 +14,22 @@
         <script type="text/javascript">
 			
 			google.load("visualization", "1", {packages:["table"]});
+			google.load("visualization", "1", {packages:["bar"]});
 			google.load("visualization", "1", {packages:["corechart"]});
             
 			function drawChart(dadosRelatorio, visual){
-				console.log(dadosRelatorio);
+//				console.log(dadosRelatorio);
 				var dados = new google.visualization.DataTable(dadosRelatorio);
 				var div = document.getElementById('dadosRelatorio');
 				var chart;
 				if(visual === "tabela"){
 					chart = new google.visualization.Table(div);
-				} else if(visual === "pizza"){
+				} /*else if(visual === "pizza"){
 					chart = new google.visualization.PieChart(div);
-				} else {
+				}*/ else {
 					chart = new google.visualization.ColumnChart(div);
 				}
-				var options = {'width':'100%'};
+				var options = {'width':'100%', 'height' : '500px', 'isStacked': 'true'};
 				chart.draw(dados, options);
 				
 //				
@@ -52,14 +53,14 @@
 						operacao = 15;
 					}
 					
-					$.post("../code/avisoCRUD.php", {operacao : operacao, inicio : vInicio, fim : vFim}, function (retorno){
+					$.post("../code/avisoCRUD.php", {operacao : operacao, tipo: vVisual, inicio : vInicio, fim : vFim}, function (retorno){
 						console.log(retorno);
 						var dadosRelatorio = JSON.parse(retorno);
 						
 						if(!dadosRelatorio.erro){
 							google.setOnLoadCallback(drawChart(dadosRelatorio.content, vVisual));
 						} else {
-							// todo erro
+							$("#dadosRelatorio").html('<p>Sem dados para serem exibidos</p>');
 						}
 						
 					});
@@ -94,7 +95,7 @@
 							<label for="visual">Vizualização de relatório</label>
 							<select placeholder="Tabela" class="dropdown form-control" for="genero" id="visual">
 								<option value="tabela">Tabela</option>
-								<option value="pizza">Pizza</option>
+<!--								<option value="pizza">Pizza</option>-->
 								<option value="barras">Coluna/Barra</option>
 							</select>
 						</div>
