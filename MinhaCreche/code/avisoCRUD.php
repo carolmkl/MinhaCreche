@@ -232,7 +232,7 @@
 			$scriptDataInicio = " aviso.dataEntrega <= '{$dataFim}' ";
 		}
 		
-		$sql = "SELECT crianca.nome, count(aviso.id_crianca) AS `numeroAviso` FROM `aviso` INNER JOIN crianca ON crianca.id_crianca = aviso.id_crianca ";
+		$sql = "SELECT crianca.nome, count(aviso.id_crianca) AS `numeroAviso` FROM `aviso` RIGHT JOIN crianca ON crianca.id_crianca = aviso.id_crianca ";
 		
 		if($scriptDataInicio != "" || $scriptDataFim != ""){
 			$sql .= "WHERE";
@@ -247,7 +247,7 @@
 			}
 		}
 		
-		$sql .= " GROUP BY aviso.id_crianca;";
+		$sql .= " GROUP BY crianca.id_crianca;";
 		
 		$result = $GLOBALS['conn']->query($sql) or die($GLOBALS['conn']->error.__LINE__);
 		

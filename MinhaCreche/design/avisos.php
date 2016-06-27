@@ -57,7 +57,7 @@
 			function informaNivel(nivel){
 				switch(nivel){
 					case '1':	
-						return "IMPONTANTE";
+						return "ALTO";
 						break;
 					case '2':	
 						return "MEDIO";
